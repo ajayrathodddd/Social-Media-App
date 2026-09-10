@@ -1,0 +1,79 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.user-search-compact {
+  position: relative;
+  width: 280px;
+  margin-top: 0;
+  border: 0;
+  background: transparent;
+}
+
+.user-search-compact .card-body {
+  padding: 0;
+}
+
+.user-search-compact .input-group-text,
+.user-search-compact .form-control,
+.user-search-compact .btn {
+  border: 0;
+  background: #fff;
+  color: #334155;
+}
+
+.user-search-compact .form-control {
+  box-shadow: none;
+}
+
+.user-search-compact .list-group {
+  position: absolute;
+  z-index: 10;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  color: #212529;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 991px) {
+  .user-search-compact {
+    width: 100%;
+    margin: 0.75rem 0;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
