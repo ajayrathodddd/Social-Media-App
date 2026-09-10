@@ -9,6 +9,8 @@ import { useNavigate, Link } from "react-router-dom";
 import Profile from './Profile';
 import UserSearch from '../components/UserSearch';
 
+const API_URL = 'https://social-media-backend-fwgu.onrender.com';
+
 function Home() {
   const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -30,7 +32,7 @@ const startChartHandler = async (userId)=>{
       },
     };
 
-    const {data} = await axios.post('/api/chat',{userId},config);
+    const {data} = await axios.post(`${API_URL}/api/chat`,{userId},config);
     navigate(`/chat/${data._id}`);
 
   }
@@ -52,7 +54,7 @@ const fetchChats = async ()=>{
       },
     };
 
-    const {data} = await axios.get('/api/chat',config);
+    const {data} = await axios.get(`${API_URL}/api/chat`,config);
     setChats(data);
   
   }
@@ -74,8 +76,8 @@ const fetchChats = async ()=>{
             Authorization: `Bearer ${userInfo.token}`,
           },
         };
-        const {data} = await axios.get('/api/posts',config);
-        setPosts(data);
+        const {data} = await axios.get(`${API_URL}/api/posts`,config);
+        setPosts(Array.isArray(data) ? data : []);
         setLoading(false)
       }
       catch (error) {
