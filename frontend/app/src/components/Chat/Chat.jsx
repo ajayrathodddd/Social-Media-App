@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
@@ -14,19 +14,22 @@ function Chat() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [messageContent, setMessageContent] = useState("");
+  const socketRef = useRef(null);
 
   useEffect(() => {
     if (!chatId) return undefined;
 
     const socket = io(ENDPOINT, {
-      // Render supports WebSockets; using it directly avoids the polling
-      // connection that was failing in the browser.
       transports: ["websocket"],
       reconnection: true,
+      reconnectionAttempts: 5,
     });
+
+    socketRef.current = socket;
 
     socket.on("connect", () => {
       console.log("Socket connected:", socket.id);
+      setError(null);
       socket.emit("joinChat", chatId);
     });
 
@@ -44,6 +47,7 @@ function Chat() {
       socket.off("connect_error");
       socket.off("receiveMessage");
       socket.disconnect();
+      socketRef.current = null;
     };
   }, [chatId]);
 
@@ -63,9 +67,7 @@ function Chat() {
         const { data } = await axios.get(`/api/chat/${chatId}`, config);
         setMessages(Array.isArray(data) ? data : []);
       } catch (error) {
-        setError(
-          error.response?.data?.message || error.message
-        );
+        setError(error.response?.data?.message || error.message);
       } finally {
         setLoading(false);
       }
@@ -97,29 +99,18 @@ function Chat() {
       );
 
       const lastMessage = data.messages?.[data.messages.length - 1];
+      const socket = socketRef.current;
 
-      if (lastMessage) {
-        // Socket connection broadcasts this saved message to everyone in chat.
-        // Create a short-lived socket only for sending when needed.
-        const socket = io(ENDPOINT, {
-          transports: ["websocket"],
-        });
-
-        socket.on("connect", () => {
-          socket.emit("joinChat", chatId);
-          socket.emit("sendMessage", {
-            chatId,
-            content: lastMessage.content,
-          });
-          socket.disconnect();
+      if (lastMessage && socket?.connected) {
+        socket.emit("sendMessage", {
+          chatId,
+          content: lastMessage.content,
         });
       }
 
       setMessageContent("");
     } catch (error) {
-      setError(
-        error.response?.data?.message || error.message
-      );
+      setError(error.response?.data?.message || error.message);
     }
   };
 
