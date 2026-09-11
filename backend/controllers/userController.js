@@ -23,19 +23,19 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-  const getUserById = async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id).select(
-        "_id username email profilePicture followers following"
-      );
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      res.json(user);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid user ID" });
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select(
+      "_id username email profilePicture followers following"
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-  };
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid user ID" });
+  }
+};
 
 const updateUserProfile = async (req, res) => {
   try {
@@ -63,20 +63,23 @@ const updateUserProfile = async (req, res) => {
 
 const searchUsers = async (req, res) => {
   try {
-    const query = req.query.q?.trim();
-    if (!query) {
-      return res.json([]);
-    }
+    const query = req.query.q?.trim() || "";
 
-    const users = await User.find({
+    // Show all other registered users when the search box is empty.
+    const filter = {
       _id: { $ne: req.user._id },
-      $or: [
+    };
+
+    if (query) {
+      filter.$or = [
         { username: { $regex: query, $options: "i" } },
         { email: { $regex: query, $options: "i" } },
-      ],
-    })
+      ];
+    }
+
+    const users = await User.find(filter)
       .select("_id username email profilePicture")
-      .limit(20);
+      .limit(50);
 
     res.json(users);
   } catch (error) {
