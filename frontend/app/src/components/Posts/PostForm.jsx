@@ -10,7 +10,6 @@ function PostForm({ fetchPosts }) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
 
-  // File input DOM reference to reset file selection UI
   const fileInputRef = useRef(null);
 
   const submitHandler = async (e) => {
@@ -18,13 +17,16 @@ function PostForm({ fetchPosts }) {
     setError(null);
 
     const formData = new FormData();
+
     formData.append("content", content);
+
     if (image) {
       formData.append("image", image);
     }
 
     try {
       setLoading(true);
+
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
       if (!userInfo || !userInfo.token) {
@@ -38,23 +40,25 @@ function PostForm({ fetchPosts }) {
       };
 
       const { data } = await axios.post(
-        "https://social-media-backend-fwgu.onrender.com/api/posts",
+        "http://localhost:5000/api/posts",
         formData,
-        config
+        config,
       );
 
+      // Make sure the backend returned the image URL
       if (image && !data.image) {
-        throw new Error("The image was not saved. Please try again.");
+        throw new Error("The image was not uploaded. Please try again.");
       }
 
-      // Reset state and file input UI
+      // Reset form
       setContent("");
       setImage(null);
+
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
 
-      // Refresh parent post feed
+      // Refresh posts
       if (fetchPosts) {
         fetchPosts();
       }
@@ -62,10 +66,11 @@ function PostForm({ fetchPosts }) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
+
       setError(
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
+        err.response?.data?.message ||
+          err.message ||
+          "Something went wrong while creating the post.",
       );
     }
   };
@@ -93,7 +98,10 @@ function PostForm({ fetchPosts }) {
           <Form.Control
             ref={fileInputRef}
             type="file"
-            onChange={(e) => setImage(e.target.files[0])}
+            accept="image/jpeg,image/jpg,image/png"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
           />
         </Form.Group>
 

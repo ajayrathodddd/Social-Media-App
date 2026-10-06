@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +13,6 @@ function Signup() {
     termsAccepted: false,
   });
 
-  // FIX: use null for "no error"
   const [formErrors, setFormErrors] = useState({
     username: null,
     email: null,
@@ -90,10 +88,9 @@ function Signup() {
 
   const isFormValid = () => {
     return (
-      formValues.username.trim() &&
-      formValues.email.trim() &&
-      formValues.password &&
-      formValues.confirmpassword &&
+      formValues.username.trim() !== "" &&
+      formValues.email.trim() !== "" &&
+      formValues.password.length >= 6 &&
       formValues.password === formValues.confirmpassword &&
       formValues.termsAccepted &&
       Object.values(formErrors).every((error) => error === null)
@@ -105,7 +102,6 @@ function Signup() {
 
     setServerError("");
 
-    // Validate everything one more time before sending
     const errors = {
       username: validateField("username", formValues.username),
       email: validateField("email", formValues.email),
@@ -135,28 +131,31 @@ function Signup() {
         },
       };
 
+      // Only send fields required by the backend
+      const signupData = {
+        username: formValues.username.trim(),
+        email: formValues.email.trim(),
+        password: formValues.password,
+      };
+
       const { data } = await axios.post(
-        "/api/auth/signup",
-        formValues,
+        "http://localhost:5000/api/auth/signup",
+        signupData,
         config
       );
 
-      console.log("Signup successful:", data);
+      console.log("SIGNUP SUCCESS:", data);
 
-      // If backend returns user/token, save it
-      if (data?.token) {
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      }
+      // Backend returns JWT token after successful signup
+      localStorage.setItem("userInfo", JSON.stringify(data));
 
-      // Go to login after successful signup
-      navigate("/login");
+      // Go directly to profile
+      navigate("/profile", { replace: true });
     } catch (error) {
-      console.error("Signup error:", error);
+      console.error("SIGNUP ERROR:", error);
 
       setServerError(
         error.response?.data?.message ||
-          error.response?.data?.error ||
-          error.message ||
           "Signup failed. Please try again."
       );
     } finally {
@@ -170,7 +169,10 @@ function Signup() {
         <div className="col-md-6 col-lg-5">
           <div className="card shadow">
             <div className="card-body p-4">
-              <h2 className="text-center mb-4">Create Account</h2>
+
+              <h2 className="text-center mb-4">
+                Create Account
+              </h2>
 
               {serverError && (
                 <div className="alert alert-danger">
@@ -179,6 +181,7 @@ function Signup() {
               )}
 
               <form onSubmit={handleSubmit}>
+
                 {/* Username */}
                 <div className="mb-3">
                   <label htmlFor="username" className="form-label">
@@ -315,14 +318,18 @@ function Signup() {
                   className="btn btn-primary w-100"
                   disabled={loading || !isFormValid()}
                 >
-                  {loading ? "Creating Account..." : "Sign Up"}
+                  {loading
+                    ? "Creating Account..."
+                    : "Sign Up"}
                 </button>
+
               </form>
 
               <div className="text-center mt-3">
                 <span>Already have an account? </span>
                 <Link to="/login">Login</Link>
               </div>
+
             </div>
           </div>
         </div>
@@ -332,4 +339,3 @@ function Signup() {
 }
 
 export default Signup;
-
