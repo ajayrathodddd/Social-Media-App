@@ -15,7 +15,7 @@ import Chat from './components/Chat/Chat';
 import ChatList from './components/Chat/ChatList';
 
 // Use the deployed Express backend for every relative /api request.
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://social-media-backend-fwgu.onrender.com';
 
 function App() {
   return (

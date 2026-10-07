@@ -40,7 +40,7 @@ function PostForm({ fetchPosts }) {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/posts",
+        "https://social-media-backend-fwgu.onrender.com/api/posts",
         formData,
         config,
       );

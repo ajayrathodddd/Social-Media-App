@@ -123,7 +123,7 @@ function Login() {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://social-media-backend-fwgu.onrender.com/api/auth/login",
         formValues,
         config
       );

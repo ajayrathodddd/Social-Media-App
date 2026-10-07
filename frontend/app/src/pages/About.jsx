@@ -26,7 +26,7 @@ function About() {
       return user.profilePicture;
     }
 
-    return `http://localhost:5000/${user.profilePicture.replace(/^\/+/, "")}`;
+   return `https://social-media-backend-fwgu.onrender.com/${user.profilePicture.replace(/^\/+/, "")}`;
   };
 
   const handleProfileClick = () => {
