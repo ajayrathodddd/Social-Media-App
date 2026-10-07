@@ -1,32 +1,27 @@
-
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Card,
-  Form,
-  ListGroup,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import QRCode from "qrcode";
-import UserPosts from "../components/Posts/UserPosts";
+import "./Profile.css";
 
 const getImageUrl = (image) => {
   if (!image) return "";
-  if (/^https?:\/\//i.test(image)) return image;
+
+  if (/^https?:\/\//i.test(image)) {
+    return image;
+  }
 
   const normalizedImage = image.replace(/\\/g, "/");
+
   const uploadsIndex = normalizedImage.indexOf("/uploads/");
 
   const uploadPath =
     uploadsIndex >= 0
       ? normalizedImage.slice(uploadsIndex)
-      : `/${normalizedImage.replace(/^\//, "")}`;
+      : `/${normalizedImage.replace(/^\/+/, "")}`;
 
   return `https://social-media-backend-fwgu.onrender.com${uploadPath}`;
 };
@@ -42,10 +37,7 @@ function Profile() {
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
   const [profilePicture, setProfilePicture] = useState(null);
-
   const [userPosts, setUserPosts] = useState([]);
-
-  const handleClose = () => setMessage("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -69,26 +61,32 @@ function Profile() {
           },
         };
 
-        // Get profile
-        const { data } = await axios.get("/api/users/profile", config);
+        const { data } = await axios.get(
+          "/api/users/profile",
+          config
+        );
+
         setUser(data);
 
-        // Get user posts
         const { data: postsData } = await axios.get(
           `/api/posts/user/${parsedUser._id}`,
           config
         );
 
-        // FIX: Make sure userPosts is always an array
-        setUserPosts(Array.isArray(postsData) ? postsData : []);
+        setUserPosts(
+          Array.isArray(postsData) ? postsData : []
+        );
 
-        // Generate QR code if 2FA secret exists
         if (data.twoFactorAuthSecret) {
-          const otpauthurl = `otpauth://totp/SecretKey?secret=${data.twoFactorAuthSecret}`;
+          const otpauthUrl =
+            `otpauth://totp/SecretKey?secret=${data.twoFactorAuthSecret}`;
 
           QRCode.toDataURL(
-            otpauthurl,
-            { width: 200, margin: 2 },
+            otpauthUrl,
+            {
+              width: 200,
+              margin: 2,
+            },
             (err, url) => {
               if (!err) {
                 setQrCodeUrl(url);
@@ -98,12 +96,12 @@ function Profile() {
         }
       } catch (error) {
         setError(
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
+          error.response?.data?.message ||
+            error.message ||
+            "Unable to load profile"
         );
 
-        if (error.response && error.response.status === 401) {
+        if (error.response?.status === 401) {
           localStorage.removeItem("userInfo");
           navigate("/login");
         }
@@ -115,11 +113,16 @@ function Profile() {
     fetchUserProfile();
   }, [navigate]);
 
+  /* ================= CHAT ================= */
+
   const startChartHandler = async (userId) => {
     try {
       setLoading(true);
+      setError(null);
 
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(
+        localStorage.getItem("userInfo")
+      );
 
       const config = {
         headers: {
@@ -128,19 +131,25 @@ function Profile() {
         },
       };
 
-      const { data } = await axios.post("/api/chat", { userId }, config);
+      const { data } = await axios.post(
+        "/api/chat",
+        { userId },
+        config
+      );
 
       navigate(`/chat/${data._id}`);
     } catch (error) {
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to start chat"
       );
     } finally {
       setLoading(false);
     }
   };
+
+  /* ================= SEARCH ================= */
 
   const searchHandler = async (e) => {
     e.preventDefault();
@@ -149,7 +158,9 @@ function Profile() {
       setLoading(true);
       setError(null);
 
-      const parsedUser = JSON.parse(localStorage.getItem("userInfo"));
+      const parsedUser = JSON.parse(
+        localStorage.getItem("userInfo")
+      );
 
       const config = {
         headers: {
@@ -159,21 +170,35 @@ function Profile() {
       };
 
       const { data } = await axios.get(
-        `/api/users/search?q=${encodeURIComponent(keyword.trim())}`,
+        `/api/users/search?q=${encodeURIComponent(
+          keyword.trim()
+        )}`,
         config
       );
 
-      // Make sure search results are always an array
-      setResults(Array.isArray(data) ? data : []);
+      setResults(
+        Array.isArray(data) ? data : []
+      );
     } catch (error) {
-      setError(error.response?.data?.message || error.message);
+      setError(
+        error.response?.data?.message ||
+          error.message ||
+          "Search failed"
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  /* ================= PROFILE IMAGE ================= */
+
   const uploadProfilePictureHandler = async (e) => {
     e.preventDefault();
+
+    if (!profilePicture) {
+      setError("Please select an image first.");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -196,7 +221,11 @@ function Profile() {
       };
 
       const formData = new FormData();
-      formData.append("profilePicture", profilePicture);
+
+      formData.append(
+        "profilePicture",
+        profilePicture
+      );
 
       const { data } = await axios.post(
         "/api/users/profile/upload",
@@ -204,22 +233,28 @@ function Profile() {
         config
       );
 
-      setMessage("Profile Picture Updated Successfully");
+      setMessage(
+        "Profile picture updated successfully."
+      );
 
-      setUser({
-        ...user,
+      setUser((previousUser) => ({
+        ...previousUser,
         profilePicture: data.profilePicture,
-      });
+      }));
+
+      setProfilePicture(null);
     } catch (error) {
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message ||
+          error.message ||
+          "Profile picture upload failed"
       );
     } finally {
       setLoading(false);
     }
   };
+
+  /* ================= 2FA ================= */
 
   const enable2FA = async () => {
     try {
@@ -227,7 +262,9 @@ function Profile() {
       setError("");
       setMessage("");
 
-      const userInfo = localStorage.getItem("userInfo");
+      const userInfo =
+        localStorage.getItem("userInfo");
+
       const parsedUser = JSON.parse(userInfo);
 
       const config = {
@@ -247,34 +284,50 @@ function Profile() {
 
       QRCode.toDataURL(
         otpauthUrl,
-        { width: 200, margin: 2 },
+        {
+          width: 200,
+          margin: 2,
+        },
         (err, url) => {
           if (err) {
-            setError("Failed to generate QR Code");
+            setError(
+              "Failed to generate QR Code"
+            );
           } else {
             setQrCodeUrl(url);
           }
         }
       );
 
-      setMessage("Two Factor authentication enabled successfully...");
+      setMessage(
+        "Two-factor authentication enabled successfully."
+      );
     } catch (error) {
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to enable two-factor authentication"
       );
     } finally {
       setLoading(false);
     }
   };
+
+  /* ================= FOLLOW ================= */
 
   const followUser = async (userId) => {
     try {
       setLoading(true);
+      setError(null);
 
-      const userInfo = localStorage.getItem("userInfo");
+      const userInfo =
+        localStorage.getItem("userInfo");
+
       const parsedUser = JSON.parse(userInfo);
+
+      if (!userId) {
+        throw new Error("User ID is missing");
+      }
 
       const config = {
         headers: {
@@ -283,13 +336,13 @@ function Profile() {
         },
       };
 
-      if (!userId) {
-        throw new Error("User ID is missing");
-      }
+      await axios.post(
+        `/api/users/${userId}/follow`,
+        {},
+        config
+      );
 
-      await axios.post(`/api/users/${userId}/follow`, {}, config);
-
-      setMessage("User followed Successfully");
+      setMessage("User followed successfully.");
 
       const { data } = await axios.get(
         "/api/users/profile",
@@ -299,21 +352,30 @@ function Profile() {
       setUser(data);
     } catch (error) {
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to follow user"
       );
     } finally {
       setLoading(false);
     }
   };
+
+  /* ================= UNFOLLOW ================= */
 
   const unfollowUser = async (userId) => {
     try {
       setLoading(true);
+      setError(null);
 
-      const userInfo = localStorage.getItem("userInfo");
+      const userInfo =
+        localStorage.getItem("userInfo");
+
       const parsedUser = JSON.parse(userInfo);
+
+      if (!userId) {
+        throw new Error("User ID is missing");
+      }
 
       const config = {
         headers: {
@@ -322,13 +384,14 @@ function Profile() {
         },
       };
 
-      if (!userId) {
-        throw new Error("User ID is missing");
-      }
+      await axios.delete(
+        `/api/users/${userId}/follow`,
+        config
+      );
 
-      await axios.delete(`/api/users/${userId}/follow`, config);
-
-      setMessage("User unfollowed successfully");
+      setMessage(
+        "User unfollowed successfully."
+      );
 
       const { data } = await axios.get(
         "/api/users/profile",
@@ -338,391 +401,717 @@ function Profile() {
       setUser(data);
     } catch (error) {
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to unfollow user"
       );
     } finally {
       setLoading(false);
     }
   };
 
+  const followersCount = Array.isArray(user.followers)
+    ? user.followers.length
+    : 0;
+
+  const followingCount = Array.isArray(user.following)
+    ? user.following.length
+    : 0;
+
+  const postsCount = Array.isArray(userPosts)
+    ? userPosts.length
+    : 0;
+
   return (
-    <Container>
-      <Row>
-        <Col md="5">
-          <Card className="mt-4 p-3">
-            <h3 className="text-center bg-light text-dark mt-2">
-              Welcome
-            </h3>
+    <div className="ajay-profile-page">
 
-            {message && (
-              <Message variant="success" onClose={() => setMessage("")}>
-                {message}
-              </Message>
+      {/* ================= PROFILE HEADER ================= */}
+
+      <section className="ajay-profile-header">
+
+        <div className="ajay-profile-header-top">
+          <div className="ajay-profile-avatar-area">
+
+            {user.profilePicture ? (
+              <img
+                src={getImageUrl(
+                  user.profilePicture
+                )}
+                alt="Profile"
+                className="ajay-profile-avatar"
+              />
+            ) : (
+              <div className="ajay-profile-avatar ajay-profile-avatar-default">
+                {user.username
+                  ?.charAt(0)
+                  ?.toUpperCase() || "U"}
+              </div>
             )}
 
-            {error && (
-              <Message variant="danger" onClose={() => setError(null)}>
-                {error}
-              </Message>
-            )}
+          </div>
 
-            {/* Profile Picture Section */}
-            <div className="text-center">
-              {user.profilePicture ? (
-                <img
-                  src={getImageUrl(user.profilePicture)}
-                  alt="Profile"
-                  className="rounded-circle"
-                  width="100"
-                  height="100"
-                  style={{ objectFit: "cover" }}
-                />
-              ) : (
-                <img
-                  src="https://via.placeholder.com/100"
-                  alt="Default Profile"
-                  className="rounded-circle"
-                  width="100"
-                  height="100"
-                />
-              )}
+          <div className="ajay-profile-identity">
+
+            <span className="ajay-profile-eyebrow">
+              MY PROFILE
+            </span>
+
+            <h1>
+              {user.username || "User"}
+            </h1>
+
+            <p>
+              {user.email ||
+                "No email available"}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="ajay-profile-stats">
+
+          <div className="ajay-stat">
+            <strong>{postsCount}</strong>
+            <span>Posts</span>
+          </div>
+
+          <div className="ajay-stat">
+            <strong>{followersCount}</strong>
+            <span>Followers</span>
+          </div>
+
+          <div className="ajay-stat">
+            <strong>{followingCount}</strong>
+            <span>Following</span>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ================= MESSAGES ================= */}
+
+      {message && (
+        <div className="ajay-profile-message">
+          <Message
+            variant="success"
+            onClose={() => setMessage("")}
+          >
+            {message}
+          </Message>
+        </div>
+      )}
+
+      {error && (
+        <div className="ajay-profile-message">
+          <Message
+            variant="danger"
+            onClose={() => setError(null)}
+          >
+            {error}
+          </Message>
+        </div>
+      )}
+
+      {/* ================= MAIN CONTENT ================= */}
+
+      <div className="ajay-profile-content">
+
+        {/* ================= LEFT COLUMN ================= */}
+
+        <aside className="ajay-profile-sidebar">
+
+          {/* PROFILE PHOTO */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading">
+              <div>
+                <span className="ajay-section-kicker">
+                  PROFILE
+                </span>
+
+                <h2>Profile picture</h2>
+
+                <p>
+                  Keep your profile photo
+                  up to date.
+                </p>
+              </div>
             </div>
 
             <Form
-              onSubmit={uploadProfilePictureHandler}
-              className="mt-3"
+              onSubmit={
+                uploadProfilePictureHandler
+              }
+              className="ajay-upload-form"
             >
-              <Form.Group>
-                <Form.Control
-                  type="file"
-                  onChange={(e) =>
-                    setProfilePicture(e.target.files[0])
-                  }
-                />
-              </Form.Group>
 
-              <Button
-                type="submit"
-                variant="light"
-                className="mt-3 btn-sm"
-              >
-                Upload/Edit Profile Picture
-              </Button>
-            </Form>
-
-            <ul className="list-group mt-3">
-              <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-                <strong>Username:</strong> {user.username}
-              </li>
-
-              <li className="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
-                <strong>Email:</strong> {user.email}
-              </li>
-
-              {!user.twoFactorAuth && (
-                <Button
-                  onClick={enable2FA}
-                  variant="primary"
-                  className="mt-3"
-                >
-                  Enable 2FA
-                </Button>
-              )}
-
-              {qrCodeUrl && (
-                <div
-                  className="accordion accordion-flush mt-3"
-                  id="accordionFlushExample"
-                >
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne"
-                        aria-expanded="false"
-                        aria-controls="flush-collapseOne"
-                      >
-                        Authenticate QR Code
-                      </button>
-                    </h2>
-
-                    <div
-                      id="flush-collapseOne"
-                      className="accordion-collapse collapse"
-                      data-bs-parent="#accordionFlushExample"
-                    >
-                      <div className="accordion-body text-center">
-                        <img
-                          src={qrCodeUrl}
-                          alt="2FA QR Code"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </ul>
-          </Card>
-        </Col>
-
-        <Col md="7">
-          <Card className="mt-4 p-3">
-            <h3 className="text-center bg-light text-dark mt-2">
-              Search Users
-            </h3>
-
-            <Form
-              onSubmit={searchHandler}
-              className="d-flex"
-            >
               <Form.Control
-                type="text"
-                placeholder="Search by username or email"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  setProfilePicture(
+                    e.target.files?.[0] || null
+                  )
+                }
+                className="ajay-file-input"
               />
 
               <Button
-                className="ms-2"
                 type="submit"
+                disabled={
+                  !profilePicture || loading
+                }
+                className="ajay-primary-button"
+              >
+                {loading
+                  ? "Uploading..."
+                  : "Upload new picture"}
+              </Button>
+
+            </Form>
+
+          </section>
+
+          {/* ACCOUNT */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading">
+              <div>
+                <span className="ajay-section-kicker">
+                  ACCOUNT
+                </span>
+
+                <h2>Account information</h2>
+
+                <p>
+                  Your basic account details.
+                </p>
+              </div>
+            </div>
+
+            <div className="ajay-info-list">
+
+              <div className="ajay-info-item">
+                <span>Username</span>
+                <strong>
+                  {user.username || "-"}
+                </strong>
+              </div>
+
+              <div className="ajay-info-item">
+                <span>Email</span>
+                <strong>
+                  {user.email || "-"}
+                </strong>
+              </div>
+
+            </div>
+
+          </section>
+
+          {/* SECURITY */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading">
+              <div>
+                <span className="ajay-section-kicker">
+                  SECURITY
+                </span>
+
+                <h2>Account security</h2>
+
+                <p>
+                  Protect your account with
+                  two-factor authentication.
+                </p>
+              </div>
+            </div>
+
+            {!user.twoFactorAuth && (
+              <Button
+                onClick={enable2FA}
+                disabled={loading}
+                className="ajay-primary-button"
+              >
+                Enable two-factor authentication
+              </Button>
+            )}
+
+            {user.twoFactorAuth && (
+              <div className="ajay-security-success">
+                <span>✓</span>
+                <div>
+                  <strong>
+                    Two-factor authentication
+                  </strong>
+                  <small>
+                    Your account is protected.
+                  </small>
+                </div>
+              </div>
+            )}
+
+            {qrCodeUrl && (
+              <div className="ajay-qr-area">
+
+                <button
+                  type="button"
+                  className="ajay-qr-toggle"
+                  onClick={() => {
+                    const element =
+                      document.getElementById(
+                        "profile-qr-code"
+                      );
+
+                    if (element) {
+                      element.classList.toggle(
+                        "ajay-qr-visible"
+                      );
+                    }
+                  }}
+                >
+                  View authentication QR code
+                </button>
+
+                <div
+                  id="profile-qr-code"
+                  className="ajay-qr-content"
+                >
+                  <img
+                    src={qrCodeUrl}
+                    alt="2FA QR Code"
+                  />
+                </div>
+
+              </div>
+            )}
+
+          </section>
+
+        </aside>
+
+        {/* ================= RIGHT COLUMN ================= */}
+
+        <main className="ajay-profile-main">
+
+          {/* FIND PEOPLE */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading ajay-section-heading-inline">
+
+              <div>
+                <span className="ajay-section-kicker">
+                  DISCOVER
+                </span>
+
+                <h2>Find people</h2>
+
+                <p>
+                  Search for users and connect
+                  with your community.
+                </p>
+              </div>
+
+            </div>
+
+            <Form
+              onSubmit={searchHandler}
+              className="ajay-search-form"
+            >
+
+              <Form.Control
+                type="text"
+                placeholder="Search by username or email..."
+                value={keyword}
+                onChange={(e) =>
+                  setKeyword(e.target.value)
+                }
+                className="ajay-search-input"
+              />
+
+              <Button
+                type="submit"
+                disabled={loading}
+                className="ajay-search-button"
               >
                 Search
               </Button>
+
             </Form>
 
             {loading && <Loader />}
 
-            <ListGroup className="mt-3">
-              {Array.isArray(results) &&
-                results.map((result) => (
-                  <ListGroup.Item
-                    key={result._id}
-                    className="d-flex align-items-center gap-2"
-                  >
-                    <Link to={`/profile/${result._id}`}>
-                      {result.username}
-                    </Link>
+            {Array.isArray(results) &&
+              results.length > 0 && (
+                <div className="ajay-search-results">
 
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={() => followUser(result._id)}
+                  {results.map((result) => (
+                    <div
+                      key={result._id}
+                      className="ajay-user-row"
                     >
-                      Follow
-                    </Button>
 
-                    <Button
-                      variant="light"
-                      size="sm"
-                      onClick={() =>
-                        startChartHandler(result._id)
-                      }
-                    >
-                      Chat
-                    </Button>
-                  </ListGroup.Item>
-                ))}
-            </ListGroup>
+                      <Link
+                        to={`/profile/${result._id}`}
+                        className="ajay-user-identity"
+                      >
 
-            <Row>
-              {/* Followers */}
-              <Col md={6}>
-                <h5 className="mt-4 bg-light p-2 text-center">
-                  Followers{" "}
-                  <span className="badge bg-primary rounded-pill">
-                    {Array.isArray(user.followers)
-                      ? user.followers.length
-                      : 0}
+                        {result.profilePicture ? (
+                          <img
+                            src={getImageUrl(
+                              result.profilePicture
+                            )}
+                            alt={
+                              result.username ||
+                              "User"
+                            }
+                            className="ajay-small-avatar"
+                          />
+                        ) : (
+                          <div className="ajay-small-avatar ajay-small-avatar-default">
+                            {result.username
+                              ?.charAt(0)
+                              ?.toUpperCase() ||
+                              "U"}
+                          </div>
+                        )}
+
+                        <div>
+                          <strong>
+                            {result.username}
+                          </strong>
+
+                          <span>
+                            View profile
+                          </span>
+                        </div>
+
+                      </Link>
+
+                      <div className="ajay-user-actions">
+
+                        <Button
+                          onClick={() =>
+                            followUser(
+                              result._id
+                            )
+                          }
+                          className="ajay-follow-button"
+                        >
+                          Follow
+                        </Button>
+
+                        <Button
+                          onClick={() =>
+                            startChartHandler(
+                              result._id
+                            )
+                          }
+                          className="ajay-chat-button"
+                        >
+                          Chat
+                        </Button>
+
+                      </div>
+
+                    </div>
+                  ))}
+
+                </div>
+              )}
+
+          </section>
+
+          {/* CONNECTIONS */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading">
+
+              <div>
+                <span className="ajay-section-kicker">
+                  COMMUNITY
+                </span>
+
+                <h2>Connections</h2>
+
+                <p>
+                  People following you and people
+                  you follow.
+                </p>
+              </div>
+
+            </div>
+
+            <div className="ajay-connections-grid">
+
+              {/* FOLLOWERS */}
+
+              <div className="ajay-connection-column">
+
+                <div className="ajay-connection-title">
+                  <h3>Followers</h3>
+                  <span>
+                    {followersCount}
                   </span>
-                </h5>
+                </div>
 
                 {Array.isArray(user.followers) &&
-                  user.followers.map((follower, index) => {
-                    const followerId =
-                      follower._id || follower;
+                user.followers.length > 0 ? (
+                  user.followers.map(
+                    (follower, index) => {
+                      const followerId =
+                        follower._id ||
+                        follower;
 
-                    return (
-                      <Row
-                        className="g-2 mb-2"
-                        key={
-                          followerId?.toString() || index
-                        }
-                      >
-                        <Col>
-                          <Card className="h-100 text-center p-2">
-                            <Card.Body className="d-flex align-items-center p-0">
-                              <Link
-                                to={`/user/${followerId}`}
-                              >
-                                <Card.Img
-                                  variant="top"
-                                  src={
-                                    follower.profilePicture
-                                      ? getImageUrl(
-                                          follower.profilePicture
-                                        )
-                                      : "https://via.placeholder.com/50"
-                                  }
-                                  alt={
-                                    follower.username ||
-                                    "Follower"
-                                  }
-                                  className="rounded-circle me-2"
-                                  style={{
-                                    width: "50px",
-                                    height: "50px",
-                                    objectFit: "cover",
-                                  }}
-                                />
-                              </Link>
+                      return (
+                        <div
+                          className="ajay-connection-row"
+                          key={
+                            followerId?.toString() ||
+                            index
+                          }
+                        >
 
-                              <Card.Title className="mb-0 fs-6 text-truncate">
-                                <Link
-                                  to={`/user/${followerId}`}
-                                >
-                                  {follower.username ||
-                                    followerId}
-                                </Link>
-                              </Card.Title>
+                          <Link
+                            to={`/user/${followerId}`}
+                            className="ajay-user-identity"
+                          >
 
-                              <Button
-                                variant="success"
-                                className="ms-auto btn-sm"
-                                onClick={() =>
-                                  followUser(followerId)
+                            {follower.profilePicture ? (
+                              <img
+                                src={getImageUrl(
+                                  follower.profilePicture
+                                )}
+                                alt={
+                                  follower.username ||
+                                  "Follower"
                                 }
-                              >
-                                Follow
-                              </Button>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      </Row>
-                    );
-                  })}
-              </Col>
+                                className="ajay-small-avatar"
+                              />
+                            ) : (
+                              <div className="ajay-small-avatar ajay-small-avatar-default">
+                                {follower.username
+                                  ?.charAt(0)
+                                  ?.toUpperCase() ||
+                                  "U"}
+                              </div>
+                            )}
 
-              {/* Following */}
-              <Col md={6}>
-                <h5 className="mt-4 bg-light p-2 text-center">
-                  Following{" "}
-                  <span className="badge bg-primary rounded-pill">
-                    {Array.isArray(user.following)
-                      ? user.following.length
-                      : 0}
+                            <div>
+                              <strong>
+                                {follower.username ||
+                                  followerId}
+                              </strong>
+                            </div>
+
+                          </Link>
+
+                          <Button
+                            onClick={() =>
+                              followUser(
+                                followerId
+                              )
+                            }
+                            className="ajay-mini-follow"
+                          >
+                            Follow
+                          </Button>
+
+                        </div>
+                      );
+                    }
+                  )
+                ) : (
+                  <div className="ajay-empty-state">
+                    No followers yet.
+                  </div>
+                )}
+
+              </div>
+
+              {/* FOLLOWING */}
+
+              <div className="ajay-connection-column">
+
+                <div className="ajay-connection-title">
+                  <h3>Following</h3>
+                  <span>
+                    {followingCount}
                   </span>
-                </h5>
+                </div>
 
                 {Array.isArray(user.following) &&
-                  user.following.map((following, index) => {
-                    const followingId =
-                      following._id || following;
+                user.following.length > 0 ? (
+                  user.following.map(
+                    (following, index) => {
+                      const followingId =
+                        following._id ||
+                        following;
 
-                    return (
-                      <Row
-                        className="g-2 mb-2"
-                        key={
-                          followingId?.toString() || index
-                        }
-                      >
-                        <Col>
-                          <Card className="h-100 text-center p-2">
-                            <Card.Body className="d-flex align-items-center p-0">
-                              <Link
-                                to={`/user/${followingId}`}
-                              >
-                                <Card.Img
-                                  variant="top"
-                                  src={
-                                    following.profilePicture
-                                      ? getImageUrl(
-                                          following.profilePicture
-                                        )
-                                      : "https://via.placeholder.com/50"
-                                  }
-                                  alt={
-                                    following.username ||
-                                    "Following"
-                                  }
-                                  className="rounded-circle me-2"
-                                  style={{
-                                    width: "50px",
-                                    height: "50px",
-                                    objectFit: "cover",
-                                  }}
-                                />
-                              </Link>
-
-                              <Card.Title className="mb-0 fs-6 text-truncate">
-                                <Link
-                                  to={`/user/${followingId}`}
-                                >
-                                  {following.username ||
-                                    followingId}
-                                </Link>
-                              </Card.Title>
-
-                              <Button
-                                variant="danger"
-                                className="ms-auto btn-sm"
-                                onClick={() =>
-                                  unfollowUser(followingId)
-                                }
-                              >
-                                Unfollow
-                              </Button>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      </Row>
-                    );
-                  })}
-              </Col>
-            </Row>
-
-            <hr />
-
-            <h3 className="text-center mt-4">
-              Your Posts
-            </h3>
-
-            <Row className="g-2">
-              {Array.isArray(userPosts) &&
-                userPosts.map((post) => (
-                  <Col
-                    key={post._id}
-                    xs={4}
-                  >
-                    <Card>
-                      {post.image && (
-                        <Link
-                          to={`/post/${post._id}`}
+                      return (
+                        <div
+                          className="ajay-connection-row"
+                          key={
+                            followingId?.toString() ||
+                            index
+                          }
                         >
-                          <Card.Img
-                            variant="top"
-                            src={getImageUrl(post.image)}
-                            alt="Post image"
-                            className="img-fluid"
-                            style={{
-                              width: "100%",
-                              height: "150px",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </Link>
-                      )}
-                    </Card>
-                  </Col>
+
+                          <Link
+                            to={`/user/${followingId}`}
+                            className="ajay-user-identity"
+                          >
+
+                            {following.profilePicture ? (
+                              <img
+                                src={getImageUrl(
+                                  following.profilePicture
+                                )}
+                                alt={
+                                  following.username ||
+                                  "Following"
+                                }
+                                className="ajay-small-avatar"
+                              />
+                            ) : (
+                              <div className="ajay-small-avatar ajay-small-avatar-default">
+                                {following.username
+                                  ?.charAt(0)
+                                  ?.toUpperCase() ||
+                                  "U"}
+                              </div>
+                            )}
+
+                            <div>
+                              <strong>
+                                {following.username ||
+                                  followingId}
+                              </strong>
+                            </div>
+
+                          </Link>
+
+                          <Button
+                            onClick={() =>
+                              unfollowUser(
+                                followingId
+                              )
+                            }
+                            className="ajay-mini-unfollow"
+                          >
+                            Unfollow
+                          </Button>
+
+                        </div>
+                      );
+                    }
+                  )
+                ) : (
+                  <div className="ajay-empty-state">
+                    Not following anyone yet.
+                  </div>
+                )}
+
+              </div>
+
+            </div>
+
+          </section>
+
+          {/* YOUR POSTS */}
+
+          <section className="ajay-profile-section">
+
+            <div className="ajay-section-heading ajay-post-heading">
+
+              <div>
+                <span className="ajay-section-kicker">
+                  YOUR CONTENT
+                </span>
+
+                <h2>Your posts</h2>
+
+                <p>
+                  Photos and posts you've shared
+                  with the community.
+                </p>
+              </div>
+
+              <strong className="ajay-post-count">
+                {postsCount}
+              </strong>
+
+            </div>
+
+            {Array.isArray(userPosts) &&
+            userPosts.length > 0 ? (
+
+              <div className="ajay-post-grid">
+
+                {userPosts.map((post) => (
+                  <div
+                    key={post._id}
+                    className="ajay-post-item"
+                  >
+
+                    {post.image ? (
+                      <Link
+                        to={`/post/${post._id}`}
+                      >
+                        <img
+                          src={getImageUrl(
+                            post.image
+                          )}
+                          alt="Post"
+                          className="ajay-post-image"
+                        />
+                      </Link>
+                    ) : (
+                      <div className="ajay-text-post">
+                        <span>✦</span>
+                        <small>
+                          Text Post
+                        </small>
+                      </div>
+                    )}
+
+                  </div>
                 ))}
-            </Row>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+
+              </div>
+
+            ) : (
+
+              <div className="ajay-no-posts">
+                <div className="ajay-no-posts-icon">
+                  +
+                </div>
+
+                <h3>No posts yet</h3>
+
+                <p>
+                  Start sharing something
+                  with your community.
+                </p>
+
+              </div>
+
+            )}
+
+          </section>
+
+        </main>
+
+      </div>
+
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
-
 const Post = require("../models/Post");
+const User = require("../models/User");
 const cloudinary = require("../config/cloudinary");
 
 // Upload image buffer to Cloudinary
@@ -25,12 +25,54 @@ const uploadToCloudinary = (buffer) => {
 
 // Get all posts
 const getPosts = async (req, res) => {
-  const posts = await Post.find()
-    .populate("user", "username profilePicture")
-    .populate("comments.user", "username profilePicture")
-    .sort({ createdAt: -1 });
+  try {
+    const posts = await Post.find()
+      .populate("user", "username profilePicture")
+      .populate("comments.user", "username profilePicture")
+      .sort({ createdAt: -1 });
 
-  res.json(posts);
+    // Fix old records where profile and post images
+    // were accidentally stored in the wrong fields.
+    for (const post of posts) {
+      const profilePicture = post.user?.profilePicture || "";
+      const postImage = post.image || "";
+
+      const profileHasPostFolder =
+        profilePicture.includes("/social-media-app/");
+
+      const postHasProfileFolder =
+        postImage.includes("/social-media-profile-pictures/");
+
+      if (profileHasPostFolder && postHasProfileFolder) {
+        const oldProfileImage = profilePicture;
+        const oldPostImage = postImage;
+
+        // Put the actual profile image back into User.profilePicture
+        await User.findByIdAndUpdate(post.user._id, {
+          profilePicture: oldPostImage,
+        });
+
+        // Update the returned post immediately
+        post.user.profilePicture = oldPostImage;
+
+        // Put the actual post image back into Post.image
+        await Post.findByIdAndUpdate(post._id, {
+          image: oldProfileImage,
+        });
+
+        // Update the returned post immediately
+        post.image = oldProfileImage;
+      }
+    }
+
+    res.json(posts);
+  } catch (error) {
+    console.error("Get posts error:", error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
 // Get posts of a specific user
@@ -239,4 +281,3 @@ module.exports = {
   unsavePost,
   getSavedPosts,
 };
-

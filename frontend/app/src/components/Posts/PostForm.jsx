@@ -62,6 +62,7 @@ function PostForm({ fetchPosts }) {
       if (fetchPosts) {
         fetchPosts();
       }
+      
 
       setLoading(false);
     } catch (err) {

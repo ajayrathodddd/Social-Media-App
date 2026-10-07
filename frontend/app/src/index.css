@@ -11,3 +11,1997 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* =========================================================
+   FINAL PAGE WIDTH FIX
+   ========================================================= */
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 !important;
+  overflow-x: hidden !important;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* Bootstrap container protection */
+#root > .container,
+#root > .container-fluid {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Home page */
+.social-home {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Bootstrap row is the important part */
+.social-home .row {
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Columns */
+.social-home .row > [class*="col-"] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Feed */
+.social-home .feed-column,
+.social-home .posts-container,
+.social-home .social-post-feed {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* Post */
+.social-home .premium-post-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Post image */
+.social-home .premium-image-container {
+  width: calc(100% - 28px) !important;
+  max-width: calc(100% - 28px) !important;
+  min-width: 0 !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  margin: 14px auto !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.social-home .premium-post-image {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Prevent long text/URLs from expanding the page */
+.social-home h1,
+.social-home h2,
+.social-home h3,
+.social-home h4,
+.social-home h5,
+.social-home h6,
+.social-home p,
+.social-home span,
+.social-home a {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Forms */
+.social-home input,
+.social-home textarea,
+.social-home select,
+.social-home button {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+
+  .social-home {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .social-home > .container-fluid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .social-home .premium-image-container {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100% - 20px) !important;
+    height: 280px !important;
+    max-height: 280px !important;
+  }
+
+  .social-home .premium-post-image {
+    height: 280px !important;
+    max-height: 280px !important;
+  }
+}
+
+
+/* =========================================================
+   POST CARD SPACING
+   ========================================================= */
+
+.social-home .social-post-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 28px !important;
+}
+
+.social-home .premium-post-card {
+  margin-bottom: 0 !important;
+}
+
+/* Extra breathing room inside each post */
+.social-home .premium-post-header {
+  padding: 18px 20px !important;
+}
+
+.social-home .premium-post-text {
+  padding: 0 20px 18px !important;
+}
+
+/* Space between image and engagement */
+.social-home .premium-image-container {
+  margin-top: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+.social-home .premium-engagement {
+  padding: 14px 20px !important;
+}
+
+/* Comments separation */
+.social-home .premium-comments {
+  margin-top: 8px !important;
+  padding: 18px 20px !important;
+}
+
+/* =========================================================
+   PROFESSIONAL CREATE POST CARD
+   ========================================================= */
+
+.social-home .create-post-card {
+  background: #ffffff !important;
+  border: 1px solid #e6e8ef !important;
+  border-radius: 20px !important;
+  padding: 22px !important;
+  margin-bottom: 28px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+.social-home .section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px !important;
+}
+
+.social-home .section-heading h3 {
+  margin: 0 0 5px !important;
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.social-home .section-heading p {
+  margin: 0 !important;
+  font-size: 13px !important;
+  color: #6b7280 !important;
+}
+
+.social-home .post-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 20px;
+}
+
+/* Post input */
+.social-home .create-post-card .form-control {
+  min-height: 48px !important;
+  border: 1px solid #dfe3eb !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  box-shadow: none !important;
+}
+
+.social-home .create-post-card .form-control:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* File input */
+.social-home .create-post-card input[type="file"] {
+  background: #f8f9fc !important;
+  cursor: pointer;
+}
+
+/* Post button */
+.social-home .create-post-card .btn-primary {
+  border: none !important;
+  border-radius: 11px !important;
+  padding: 10px 22px !important;
+  font-weight: 600 !important;
+  background: #4f46e5 !important;
+  box-shadow: 0 5px 14px rgba(79, 70, 229, 0.2) !important;
+}
+
+.social-home .create-post-card .btn-primary:hover {
+  background: #4338ca !important;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   PROFESSIONAL FIND PEOPLE CARD
+   ========================================================= */
+
+.social-home .social-sidebar-card {
+  background: #ffffff !important;
+  border: 1px solid #e6e8ef !important;
+  border-radius: 20px !important;
+  padding: 20px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  position: sticky;
+  top: 20px;
+}
+
+.social-home .sidebar-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px !important;
+}
+
+.social-home .sidebar-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #eef2ff;
+  font-size: 18px;
+}
+
+.social-home .sidebar-heading h5 {
+  margin: 2px 0 4px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.social-home .sidebar-heading p {
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  color: #6b7280 !important;
+}
+
+/* Search area */
+.social-home .social-sidebar-card input {
+  border-radius: 11px !important;
+  border: 1px solid #dfe3eb !important;
+  min-height: 44px !important;
+  box-shadow: none !important;
+}
+
+.social-home .social-sidebar-card input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Search button */
+.social-home .social-sidebar-card .btn {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+/* User result cards */
+.social-home .social-sidebar-card .card,
+.social-home .social-sidebar-card .list-group-item {
+  border-radius: 12px !important;
+  border: 1px solid #edf0f4 !important;
+  margin-top: 10px !important;
+}
+
+/* =========================================================
+   PROFESSIONAL LATEST POSTS HEADER
+   ========================================================= */
+
+.social-home .feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 14px !important;
+  margin-bottom: 6px !important;
+  border-bottom: 1px solid #e9ebf0 !important;
+}
+
+.social-home .feed-header h3 {
+  margin: 0 !important;
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.social-home .feed-header p {
+  margin: 5px 0 0 !important;
+  font-size: 13px !important;
+  color: #6b7280 !important;
+}
+
+/* =========================================================
+   PREMIUM SOCIAL POST CARD
+   ========================================================= */
+
+.social-home .premium-post-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.social-home .premium-post-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09) !important;
+}
+
+/* User header */
+
+.social-home .premium-post-header {
+  padding: 17px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: #ffffff !important;
+}
+
+.social-home .premium-post-header img {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #eef2ff !important;
+}
+
+.social-home .premium-post-header h6 {
+  margin: 0 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.social-home .premium-post-header small {
+  color: #98a2b3 !important;
+  font-size: 11px !important;
+}
+
+/* Post text */
+
+.social-home .premium-post-text {
+  padding: 0 20px 16px !important;
+  color: #344054 !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+/* Image */
+
+.social-home .premium-image-container {
+  width: calc(100% - 28px) !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  margin: 0 auto 14px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #f3f4f6 !important;
+}
+
+.social-home .premium-post-image {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  transition: transform 0.3s ease !important;
+}
+
+.social-home .premium-image-container:hover .premium-post-image {
+  transform: scale(1.02) !important;
+}
+
+/* Engagement */
+
+.social-home .premium-engagement {
+  padding: 12px 20px !important;
+  border-top: 1px solid #f0f2f5 !important;
+  border-bottom: 1px solid #f0f2f5 !important;
+}
+
+.social-home .premium-actions {
+  margin: 8px 20px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.social-home .premium-action {
+  border: none !important;
+  background: #f8f9fc !important;
+  color: #475467 !important;
+  border-radius: 10px !important;
+  padding: 9px 13px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.social-home .premium-action:hover {
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+}
+
+/* Comments */
+
+.social-home .premium-comments {
+  background: #fafbfc !important;
+  padding: 18px 20px !important;
+}
+
+.social-home .premium-comments h6 {
+  margin-bottom: 12px !important;
+  font-weight: 700 !important;
+  color: #344054 !important;
+}
+
+.social-home .premium-comment-item {
+  margin-bottom: 10px !important;
+}
+
+.social-home .comment-bubble {
+  background: #ffffff !important;
+  border: 1px solid #edf0f4 !important;
+  border-radius: 12px !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+  .social-home .premium-post-card {
+    border-radius: 16px !important;
+  }
+
+  .social-home .premium-post-header {
+    padding: 14px !important;
+  }
+
+  .social-home .premium-post-text {
+    padding: 0 14px 14px !important;
+  }
+
+  .social-home .premium-image-container {
+    width: calc(100% - 20px) !important;
+    height: 280px !important;
+    max-height: 280px !important;
+  }
+
+  .social-home .premium-actions {
+    margin-left: 14px !important;
+    margin-right: 14px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .social-home .premium-comments {
+    padding: 14px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL STAY CONNECTED CARD
+   ========================================================= */
+
+.social-home .social-info-card {
+  background: #ffffff !important;
+  border: 1px solid #e6e8ef !important;
+  border-radius: 20px !important;
+  padding: 22px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  position: sticky;
+  top: 20px;
+}
+
+.social-home .social-info-card .info-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #eef2ff;
+  font-size: 21px;
+  margin-bottom: 15px;
+}
+
+.social-home .social-info-card h5 {
+  margin: 0 0 7px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.social-home .social-info-card > p {
+  margin: 0 0 20px !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #667085 !important;
+}
+
+.social-home .social-info-card .info-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 11px 0 !important;
+  border-top: 1px solid #f0f2f5 !important;
+  font-size: 13px !important;
+  color: #475467 !important;
+}
+
+.social-home .social-info-card .info-item > span:first-child {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ecfdf3;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   PROFESSIONAL NAVBAR
+   ========================================================= */
+
+.navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05) !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.navbar .container,
+.navbar .container-fluid {
+  max-width: 1200px !important;
+}
+
+.navbar-brand {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #111827 !important;
+  letter-spacing: -0.3px;
+}
+
+.navbar-brand:hover {
+  color: #4f46e5 !important;
+}
+
+.navbar .nav-link {
+  color: #667085 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 8px 13px !important;
+  border-radius: 9px !important;
+  transition: all 0.2s ease !important;
+}
+
+.navbar .nav-link:hover {
+  color: #4f46e5 !important;
+  background: #f5f3ff !important;
+}
+
+.navbar .nav-link.active {
+  color: #4f46e5 !important;
+  background: #eef2ff !important;
+}
+
+/* Mobile navbar */
+
+@media (max-width: 767px) {
+  .navbar {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .navbar .nav-link {
+    margin-top: 3px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL HOME PAGE BACKGROUND
+   ========================================================= */
+
+body {
+  background: #f6f7fb !important;
+}
+
+.social-home {
+  background: #f6f7fb !important;
+  min-height: calc(100vh - 70px);
+  padding-top: 8px !important;
+  padding-bottom: 40px !important;
+}
+
+/* Welcome section */
+
+.social-home .social-welcome {
+  padding: 18px 10px 4px !important;
+}
+
+.social-home .social-title {
+  margin-bottom: 6px !important;
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.7px !important;
+  color: #111827 !important;
+}
+
+.social-home .social-subtitle {
+  margin: 0 !important;
+  color: #667085 !important;
+  font-size: 14px !important;
+}
+
+/* Better spacing between the three main columns */
+
+.social-home > .container-fluid {
+  max-width: 1400px !important;
+}
+
+/* Keep cards visually separated from background */
+
+.social-home .social-sidebar-card,
+.social-home .create-post-card,
+.social-home .social-info-card,
+.social-home .premium-post-card {
+  background: #ffffff !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .social-title {
+    font-size: 25px !important;
+  }
+
+  .social-home .social-subtitle {
+    font-size: 13px !important;
+  }
+
+  .social-home .social-welcome {
+    padding-top: 12px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL POST ACTION BUTTONS
+   ========================================================= */
+
+.social-home .premium-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding-top: 4px !important;
+}
+
+.social-home .premium-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  min-height: 38px !important;
+  border: 1px solid #e5e7eb !important;
+  background: #ffffff !important;
+  color: #475467 !important;
+  border-radius: 10px !important;
+  padding: 8px 13px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.social-home .premium-action:hover {
+  background: #f5f3ff !important;
+  border-color: #c7d2fe !important;
+  color: #4f46e5 !important;
+  transform: translateY(-1px) !important;
+}
+
+.social-home .premium-action:active {
+  transform: translateY(0) !important;
+}
+
+/* Like button */
+
+.social-home .premium-action.like-button:hover {
+  background: #fff1f2 !important;
+  border-color: #fecdd3 !important;
+  color: #e11d48 !important;
+}
+
+/* Share button */
+
+.social-home .premium-action.share-button:hover {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #2563eb !important;
+}
+
+/* Delete button */
+
+.social-home .premium-action.delete-button:hover {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #dc2626 !important;
+}
+
+/* Chat button */
+
+.social-home .premium-action.chat-button:hover {
+  background: #ecfdf5 !important;
+  border-color: #bbf7d0 !important;
+  color: #16a34a !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .premium-action {
+    flex: 1 1 auto !important;
+    min-width: 90px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL COMMENT SECTION
+   ========================================================= */
+
+.social-home .premium-comments {
+  background: #f8fafc !important;
+  border-top: 1px solid #eef0f4 !important;
+  padding: 18px 20px !important;
+}
+
+.social-home .premium-comments h6 {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  margin: 0 0 14px !important;
+}
+
+/* Individual comments */
+
+.social-home .premium-comment-item {
+  margin-bottom: 10px !important;
+}
+
+.social-home .comment-bubble {
+  background: #ffffff !important;
+  border: 1px solid #e8ebf0 !important;
+  border-radius: 12px !important;
+  padding: 10px 13px !important;
+  color: #344054 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Comment input */
+
+.social-home .premium-comments input,
+.social-home .premium-comments textarea {
+  border: 1px solid #dfe3eb !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  min-height: 42px !important;
+  padding: 9px 12px !important;
+  font-size: 13px !important;
+  box-shadow: none !important;
+}
+
+.social-home .premium-comments input:focus,
+.social-home .premium-comments textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10) !important;
+}
+
+/* Comment button */
+
+.social-home .premium-comments .btn {
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 15px !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .premium-comments {
+    padding: 14px !important;
+  }
+
+  .social-home .comment-bubble {
+    font-size: 12px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL FIND PEOPLE RESULTS
+   ========================================================= */
+
+.social-home .social-sidebar-card .list-group {
+  border: none !important;
+}
+
+.social-home .social-sidebar-card .list-group-item {
+  background: #ffffff !important;
+  border: 1px solid #edf0f4 !important;
+  border-radius: 14px !important;
+  padding: 12px !important;
+  margin-top: 10px !important;
+  transition: all 0.2s ease !important;
+}
+
+.social-home .social-sidebar-card .list-group-item:hover {
+  border-color: #c7d2fe !important;
+  background: #f8f7ff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* User avatar */
+
+.social-home .social-sidebar-card .list-group-item img {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #eef2ff !important;
+}
+
+/* User name */
+
+.social-home .social-sidebar-card .list-group-item h6,
+.social-home .social-sidebar-card .list-group-item strong {
+  color: #1f2937 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* Small text */
+
+.social-home .social-sidebar-card .list-group-item small {
+  color: #98a2b3 !important;
+  font-size: 11px !important;
+}
+
+/* Buttons */
+
+.social-home .social-sidebar-card .list-group-item .btn {
+  border-radius: 9px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 10px !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .social-sidebar-card .list-group-item {
+    padding: 10px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL LOADING STATE
+   ========================================================= */
+
+.social-home .social-loading {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  min-height: 80px !important;
+  margin: 10px 0 22px !important;
+  padding: 18px !important;
+  background: #ffffff !important;
+  border: 1px solid #e6e8ef !important;
+  border-radius: 16px !important;
+  color: #667085 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+.social-home .social-loading .spinner-border {
+  width: 20px !important;
+  height: 20px !important;
+  border-width: 2px !important;
+}
+
+/* =========================================================
+   PROFESSIONAL ALERT / ERROR MESSAGE
+   ========================================================= */
+
+.social-home .alert {
+  border-radius: 14px !important;
+  border: 1px solid #fecaca !important;
+  background: #fff7f7 !important;
+  color: #b42318 !important;
+  padding: 13px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 14px rgba(180, 35, 24, 0.05) !important;
+}
+
+/* =========================================================
+   EMPTY POSTS AREA
+   ========================================================= */
+
+.social-home .posts-container:empty {
+  min-height: 80px !important;
+}
+
+/* Better Bootstrap danger messages inside the feed */
+
+.social-home .message,
+.social-home .alert-danger {
+  line-height: 1.5 !important;
+}
+
+/* =========================================================
+   FINAL MOBILE SPACING
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .social-home .alert {
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL PROFILE PAGE
+   ========================================================= */
+
+.profile-page {
+  background: #f6f7fb !important;
+  min-height: calc(100vh - 70px);
+  padding-bottom: 40px !important;
+}
+
+/* Main profile cards */
+
+.profile-page .card {
+  border: 1px solid #e6e8ef !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  overflow: hidden !important;
+}
+
+/* Profile image */
+
+.profile-page img {
+  object-fit: cover !important;
+}
+
+/* Headings */
+
+.profile-page h1,
+.profile-page h2,
+.profile-page h3,
+.profile-page h4,
+.profile-page h5 {
+  color: #111827 !important;
+  font-weight: 700 !important;
+}
+
+/* Text */
+
+.profile-page p,
+.profile-page small {
+  color: #667085 !important;
+}
+
+/* Buttons */
+
+.profile-page .btn {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.profile-page .btn:hover {
+  transform: translateY(-1px) !important;
+}
+
+/* Form controls */
+
+.profile-page .form-control {
+  border: 1px solid #dfe3eb !important;
+  border-radius: 11px !important;
+  box-shadow: none !important;
+}
+
+.profile-page .form-control:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10) !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .profile-page {
+    padding-bottom: 25px !important;
+  }
+
+  .profile-page .card {
+    border-radius: 16px !important;
+  }
+}
+
+/* =========================================================
+   FINAL TYPOGRAPHY POLISH
+   ========================================================= */
+
+body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif !important;
+  color: #1f2937 !important;
+}
+
+/* Main headings */
+
+.social-home h1,
+.social-home h2,
+.social-home h3,
+.social-home h4,
+.social-home h5,
+.social-home h6 {
+  letter-spacing: -0.2px !important;
+}
+
+/* Normal text */
+
+.social-home p {
+  letter-spacing: 0 !important;
+}
+
+/* Buttons and form controls */
+
+.social-home button,
+.social-home input,
+.social-home textarea,
+.social-home select {
+  font-family: inherit !important;
+}
+
+/* Improve text rendering */
+
+.social-home,
+.navbar,
+.profile-page {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* =========================================================
+   POST CONTENT TYPOGRAPHY
+   ========================================================= */
+
+.social-home .premium-post-text {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #344054 !important;
+  padding: 2px 20px 18px !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.social-home .premium-post-text::first-letter {
+  text-transform: none !important;
+}
+
+/* Keep post content comfortable on smaller screens */
+
+@media (max-width: 767px) {
+  .social-home .premium-post-text {
+    padding: 2px 14px 15px !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* =========================================================
+   FINAL CARD HOVER POLISH
+   ========================================================= */
+
+.social-home .social-sidebar-card,
+.social-home .create-post-card,
+.social-home .social-info-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease !important;
+}
+
+.social-home .social-sidebar-card:hover,
+.social-home .create-post-card:hover,
+.social-home .social-info-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: #d9ddf5 !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* =========================================================
+   FINAL POST IMAGE POLISH
+   ========================================================= */
+
+.social-home .premium-image-container {
+  position: relative !important;
+  border: 1px solid #eef0f4 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+.social-home .premium-image-container::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
+}
+
+.social-home .premium-post-image {
+  background: #f3f4f6 !important;
+}
+
+/* Keep images clean on mobile */
+
+@media (max-width: 767px) {
+  .social-home .premium-image-container {
+    border-radius: 14px !important;
+  }
+}
+
+/* =========================================================
+   FINAL CREATE POST FORM POLISH
+   ========================================================= */
+
+.social-home .create-post-card form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.social-home .create-post-card .form-group {
+  margin-bottom: 0 !important;
+}
+
+.social-home .create-post-card input[type="text"] {
+  font-size: 14px !important;
+  color: #1f2937 !important;
+}
+
+.social-home .create-post-card input[type="text"]::placeholder {
+  color: #98a2b3 !important;
+}
+
+.social-home .create-post-card input[type="file"] {
+  min-height: 46px !important;
+  padding: 10px 12px !important;
+  font-size: 13px !important;
+  color: #667085 !important;
+  border: 1px dashed #d5d9e2 !important;
+  background: #f8fafc !important;
+}
+
+.social-home .create-post-card input[type="file"]:hover {
+  border-color: #a5b4fc !important;
+  background: #f5f3ff !important;
+}
+
+.social-home .create-post-card .btn-primary {
+  align-self: flex-start !important;
+  min-width: 95px !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .create-post-card {
+    padding: 17px !important;
+  }
+
+  .social-home .create-post-card .btn-primary {
+    width: 100% !important;
+  }
+}
+
+/* =========================================================
+   FINAL POST HEADER POLISH
+   ========================================================= */
+
+.social-home .premium-post-header {
+  position: relative !important;
+  min-height: 74px !important;
+  background: #ffffff !important;
+}
+
+.social-home .premium-post-header > div {
+  min-width: 0 !important;
+}
+
+.social-home .premium-post-header h6 {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.social-home .premium-post-header small {
+  display: block !important;
+  margin-top: 3px !important;
+  color: #98a2b3 !important;
+}
+
+/* Profile image hover */
+
+.social-home .premium-post-header img {
+  transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+.social-home .premium-post-header img:hover {
+  transform: scale(1.05) !important;
+  border-color: #c7d2fe !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .premium-post-header {
+    min-height: 68px !important;
+  }
+
+  .social-home .premium-post-header h6 {
+    font-size: 14px !important;
+  }
+}
+
+/* =========================================================
+   FINAL FEED WIDTH POLISH
+   ========================================================= */
+
+@media (min-width: 1200px) {
+  .social-home .feed-column {
+    max-width: 760px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .social-home .feed-column {
+    max-width: 100% !important;
+  }
+}
+
+/* =========================================================
+   FINAL PAGE BREATHING SPACE
+   ========================================================= */
+
+.social-home {
+  padding-bottom: 60px !important;
+}
+
+.social-home .posts-container {
+  padding-bottom: 20px !important;
+}
+
+.social-home .social-post-feed {
+  padding-bottom: 10px !important;
+}
+
+@media (max-width: 767px) {
+  .social-home {
+    padding-bottom: 35px !important;
+  }
+
+  .social-home .posts-container {
+    padding-bottom: 10px !important;
+  }
+}
+
+/* =========================================================
+   FINAL HOME SECTION SPACING
+   ========================================================= */
+
+.social-home .social-welcome {
+  margin-bottom: 30px !important;
+}
+
+.social-home .social-welcome h1 {
+  margin-top: 0 !important;
+}
+
+.social-home .social-welcome p {
+  max-width: 620px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.social-home > .container-fluid {
+  padding-top: 4px !important;
+}
+
+/* Keep the three main sections aligned */
+
+.social-home .social-sidebar-card,
+.social-home .feed-column,
+.social-home .social-info-card {
+  margin-bottom: 20px !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .social-welcome {
+    margin-bottom: 20px !important;
+  }
+
+  .social-home .social-welcome p {
+    max-width: 100% !important;
+  }
+}
+
+/* =========================================================
+   SOCIAL FEED - PREMIUM HEADER
+   ========================================================= */
+
+.social-home .social-welcome {
+  position: relative;
+  padding: 30px 20px 24px !important;
+  margin-bottom: 30px !important;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.social-home .social-title {
+  margin: 0 0 8px !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.8px !important;
+  color: #111827 !important;
+}
+
+.social-home .social-subtitle {
+  margin: 0 auto !important;
+  max-width: 650px !important;
+  color: #667085 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .social-welcome {
+    padding: 22px 15px 20px !important;
+    margin-bottom: 20px !important;
+    border-radius: 17px;
+  }
+
+  .social-home .social-title {
+    font-size: 25px !important;
+  }
+
+  .social-home .social-subtitle {
+    font-size: 13px !important;
+  }
+}
+
+/* =========================================================
+   LATEST POSTS - PREMIUM SECTION HEADER
+   ========================================================= */
+
+.social-home .feed-header {
+  position: relative;
+  padding: 18px 4px 16px !important;
+  margin-bottom: 16px !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.social-home .feed-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 52px;
+  height: 3px;
+  border-radius: 3px;
+  background: #4f46e5;
+}
+
+.social-home .feed-header h3 {
+  margin: 0 !important;
+  color: #111827 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.4px !important;
+}
+
+.social-home .feed-header p {
+  margin: 5px 0 0 !important;
+  color: #667085 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .feed-header {
+    padding-top: 12px !important;
+    padding-bottom: 13px !important;
+  }
+
+  .social-home .feed-header h3 {
+    font-size: 19px !important;
+  }
+}
+
+/* =========================================================
+   CREATE POST - PREMIUM COMPOSER
+   ========================================================= */
+
+.social-home .create-post-card {
+  position: relative;
+  border: 1px solid #e4e7ec !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.06) !important;
+}
+
+.social-home .create-post-card::before {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 4px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  background: #4f46e5;
+}
+
+.social-home .create-post-card .section-heading {
+  margin-bottom: 18px !important;
+}
+
+.social-home .create-post-card .section-heading h3 {
+  color: #111827 !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+}
+
+.social-home .create-post-card .section-heading p {
+  color: #667085 !important;
+  font-size: 13px !important;
+}
+
+.social-home .create-post-card .post-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: #eef2ff;
+  color: #4f46e5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+}
+
+.social-home .create-post-card .form-control {
+  background: #fafbfc !important;
+  border-color: #dfe3eb !important;
+  transition: all 0.2s ease !important;
+}
+
+.social-home .create-post-card .form-control:hover {
+  border-color: #c7d2fe !important;
+  background: #ffffff !important;
+}
+
+.social-home .create-post-card .btn-primary {
+  min-height: 42px !important;
+  padding: 9px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .create-post-card {
+    padding: 18px !important;
+    border-radius: 17px !important;
+  }
+
+  .social-home .create-post-card .section-heading h3 {
+    font-size: 18px !important;
+  }
+}
+
+/* =========================================================
+   SOCIAL POSTS - PREMIUM CARD
+   ========================================================= */
+
+.social-home .premium-post-card {
+  position: relative;
+  background: #ffffff !important;
+  border: 1px solid #e4e7ec !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 7px 24px rgba(15, 23, 42, 0.055) !important;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease !important;
+}
+
+.social-home .premium-post-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: #d9ddf5 !important;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.09) !important;
+}
+
+.social-home .premium-post-header {
+  padding: 18px 20px !important;
+  border-bottom: 1px solid #f0f2f5 !important;
+}
+
+.social-home .premium-post-header h6 {
+  color: #111827 !important;
+  font-size: 14px !important;
+  font-weight: 750 !important;
+}
+
+.social-home .premium-post-header small {
+  color: #98a2b3 !important;
+  font-size: 11px !important;
+}
+
+.social-home .premium-post-text {
+  padding: 17px 20px !important;
+  color: #344054 !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+
+.social-home .premium-image-container {
+  margin: 0 14px 14px !important;
+  width: calc(100% - 28px) !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #f3f4f6 !important;
+  border: 1px solid #eef0f4 !important;
+}
+
+.social-home .premium-post-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.3s ease !important;
+}
+
+.social-home .premium-image-container:hover .premium-post-image {
+  transform: scale(1.025) !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .premium-post-card {
+    border-radius: 16px !important;
+  }
+
+  .social-home .premium-post-header {
+    padding: 15px !important;
+  }
+
+  .social-home .premium-post-text {
+    padding: 14px !important;
+  }
+
+  .social-home .premium-image-container {
+    width: calc(100% - 20px) !important;
+    height: 280px !important;
+    max-height: 280px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+}
+
+/* =========================================================
+   POST ACTIONS - PREMIUM BUTTONS
+   ========================================================= */
+
+.social-home .premium-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 12px 20px !important;
+  margin: 0 !important;
+  border-top: 1px solid #f0f2f5 !important;
+}
+
+.social-home .premium-action {
+  min-height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 7px 13px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 9px !important;
+  background: #ffffff !important;
+  color: #475467 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+.social-home .premium-action:hover {
+  transform: translateY(-1px) !important;
+  background: #f8f7ff !important;
+  border-color: #c7d2fe !important;
+  color: #4f46e5 !important;
+}
+
+.social-home .premium-action.like-button:hover {
+  background: #fff1f2 !important;
+  border-color: #fecdd3 !important;
+  color: #e11d48 !important;
+}
+
+.social-home .premium-action.share-button:hover {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #2563eb !important;
+}
+
+.social-home .premium-action.delete-button:hover {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #dc2626 !important;
+}
+
+.social-home .premium-action.chat-button:hover {
+  background: #ecfdf5 !important;
+  border-color: #bbf7d0 !important;
+  color: #16a34a !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .social-home .premium-actions {
+    padding: 10px 14px !important;
+  }
+
+  .social-home .premium-action {
+    flex: 1 1 auto !important;
+    min-width: 85px !important;
+  }
+}
+/* =========================================================
+   POST COMMENTS - PREMIUM STYLE
+   ========================================================= */
+
+.social-home .premium-comments {
+  background: #f8fafc !important;
+  border-top: 1px solid #eef0f4 !important;
+  padding: 18px 20px !important;
+}
+
+.social-home .premium-comments h6 {
+  margin: 0 0 13px !important;
+  color: #1f2937 !important;
+  font-size: 14px !important;
+  font-weight: 750 !important;
+}
+
+.social-home .premium-comment-item {
+  margin-bottom: 10px !important;
+}
+
+.social-home .comment-bubble {
+  background: #ffffff !important;
+  border: 1px solid #e8ebf0 !important;
+  border-radius: 12px !important;
+  padding: 10px 13px !important;
+  color: #344054 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.03) !important;
+}
+
+.social-home .premium-comments input,
+.social-home .premium-comments textarea {
+  min-height: 42px !important;
+  border: 1px solid #dfe3eb !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  padding: 9px 12px !important;
+  font-size: 13px !important;
+  box-shadow: none !important;
+}
+
+.social-home .premium-comments input:focus,
+.social-home .premium-comments textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10) !important;
+}
+
+.social-home .premium-comments .btn {
+  border: none !important;
+  border-radius: 9px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 767px) {
+  .social-home .premium-comments {
+    padding: 14px !important;
+  }
+
+  .social-home .comment-bubble {
+    font-size: 12px !important;
+  }
+}
+
+/* =========================================================
+   PROFESSIONAL NAVBAR
+   ========================================================= */
+
+.navbar.bg-primary {
+  background: #111827 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.12);
+  padding: 12px 20px;
+}
+
+.navbar.bg-primary .navbar-brand {
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.navbar.bg-primary .nav-link {
+  color: #d1d5db !important;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 14px !important;
+  border-radius: 9px;
+  transition: all 0.2s ease;
+}
+
+.navbar.bg-primary .nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar.bg-primary .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.navbar.bg-primary .navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.navbar.bg-primary .dropdown-menu {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.navbar.bg-primary .dropdown-item {
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.navbar.bg-primary .dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+@media (max-width: 991px) {
+  .navbar.bg-primary {
+    padding: 10px 14px;
+  }
+
+  .navbar.bg-primary .nav-link {
+    margin-top: 3px;
+  }
+}
+
+
+
+
+
+
+
+
+/* =========================================================
+   PROFESSIONAL CREATE POST / UPLOAD AREA
+   ========================================================= */
+
+.create-post-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.create-post-card form {
+  margin-top: 20px;
+}
+
+.create-post-card .form-control {
+  min-height: 48px;
+  border: 1px solid #e4e7ec;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #1f2937;
+  font-size: 14px;
+  padding: 12px 14px;
+  transition: all 0.2s ease;
+}
+
+.create-post-card .form-control::placeholder {
+  color: #98a2b3;
+}
+
+.create-post-card .form-control:focus {
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+.create-post-card input[type="file"] {
+  min-height: auto;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.create-post-card input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-post-card form button[type="submit"] {
+  min-width: 100px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 12px rgba(79, 70, 229, 0.18);
+  transition: all 0.2s ease;
+}
+
+.create-post-card form button[type="submit"]:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 16px rgba(79, 70, 229, 0.22);
+}
+
+.create-post-card form button[type="submit"]:disabled {
+  opacity: 0.7;
+  transform: none;
+  cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .create-post-card form {
+    margin-top: 15px;
+  }
+
+  .create-post-card form button[type="submit"] {
+    width: 100%;
+  }
+}

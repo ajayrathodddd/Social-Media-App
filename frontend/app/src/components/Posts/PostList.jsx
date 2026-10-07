@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import axios from "axios";
 import Loader from "../Loader";
 import Message from "../Message";
@@ -7,7 +7,7 @@ import Message from "../Message";
 const getImageUrl = (image) => {
   if (!image) return "";
 
-  // Cloudinary or any other complete URL
+  // Cloudinary or any complete URL
   if (/^https?:\/\//i.test(image)) {
     return image;
   }
@@ -24,7 +24,7 @@ const getImageUrl = (image) => {
   }
 
   return `https://social-media-backend-fwgu.onrender.com/${normalizedImage.replace(
-    /^\//,
+    /^\/+/,
     ""
   )}`;
 };
@@ -39,7 +39,9 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
   const handleClose = () => setMessage("");
 
   const getConfig = () => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const userInfo = JSON.parse(
+      localStorage.getItem("userInfo")
+    );
 
     return {
       headers: {
@@ -48,7 +50,10 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
     };
   };
 
-  // Like / Unlike
+  // =========================
+  // LIKE / UNLIKE
+  // =========================
+
   const toggleLikeHandler = async (postId) => {
     try {
       const { data } = await axios.post(
@@ -66,12 +71,16 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
       }));
     } catch (error) {
       setError(
-        error.response?.data?.message || error.message
+        error.response?.data?.message ||
+          error.message
       );
     }
   };
 
-  // Share post
+  // =========================
+  // SHARE POST
+  // =========================
+
   const sharePostHandler = async (postId) => {
     const shareUrl = `${window.location.origin}/post/${postId}`;
 
@@ -92,7 +101,10 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
     }
   };
 
-  // Add comment
+  // =========================
+  // ADD COMMENT
+  // =========================
+
   const submitCommentHandler = async (postId) => {
     try {
       setLoading(true);
@@ -128,12 +140,16 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
       setLoading(false);
 
       setError(
-        error.response?.data?.message || error.message
+        error.response?.data?.message ||
+          error.message
       );
     }
   };
 
-  // Delete post
+  // =========================
+  // DELETE POST
+  // =========================
+
   const deletePostHandler = async (postId) => {
     if (
       !window.confirm(
@@ -168,7 +184,8 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
       setLoading(false);
 
       setError(
-        error.response?.data?.message || error.message
+        error.response?.data?.message ||
+          error.message
       );
     }
   };
@@ -194,110 +211,183 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
           {error}
         </Message>
       ) : (
-        posts?.map((post) => {
-          const currentUser = JSON.parse(
-            localStorage.getItem("userInfo") || "null"
-          );
-
-          const isOwner =
-            post.user?._id?.toString() ===
-            currentUser?._id?.toString();
-
-          const currentLikeState =
-            likeState[post._id];
-
-          const likeCount =
-            currentLikeState?.count ??
-            post.likes?.length ??
-            0;
-
-          const isLiked =
-            currentLikeState?.liked ??
-            post.likes?.some(
-              (userId) =>
-                userId.toString() ===
-                currentUser?._id?.toString()
+        <div className="social-post-feed">
+          {posts?.map((post) => {
+            const currentUser = JSON.parse(
+              localStorage.getItem("userInfo") || "null"
             );
 
-          return (
-            <Card
-              key={post._id}
-              className="my-3 shadow-sm"
-            >
-              {/* Post Header */}
-              <Card.Body>
-                <div className="d-flex align-items-center position-relative">
-                  <img
-                    src={
-                      post.user?.profilePicture ||
-                      "https://via.placeholder.com/50"
-                    }
-                    alt={
-                      post.user?.username || "User"
-                    }
-                    className="rounded-circle me-2"
+            const isOwner =
+              post.user?._id?.toString() ===
+              currentUser?._id?.toString();
+
+            const currentLikeState =
+              likeState[post._id];
+
+            const likeCount =
+              currentLikeState?.count ??
+              post.likes?.length ??
+              0;
+
+            const isLiked =
+              currentLikeState?.liked ??
+              post.likes?.some(
+                (userId) =>
+                  userId.toString() ===
+                  currentUser?._id?.toString()
+              );
+
+            const commentCount =
+              post.comments?.length || 0;
+
+            /*
+             * IMPORTANT:
+             * Profile image and post image are completely separate.
+             */
+            const profileImage =
+              post.user?.profilePicture
+                ? getImageUrl(post.user.profilePicture)
+                : "https://via.placeholder.com/50";
+
+            return (
+              <article
+                key={post._id}
+                className="premium-post-card"
+              >
+                {/* =========================
+                    POST HEADER
+                ========================= */}
+
+                <div className="premium-post-header">
+                  <div
+                    className="premium-user"
                     style={{
-                      width: "40px",
-                      height: "40px",
-                      objectFit: "cover",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "12px",
+                      minWidth: 0,
                     }}
-                  />
-
-                  <strong>
-                    {post.user?.username || "User"}
-                  </strong>
-
-                  {isOwner && (
-                    <Button
-                      variant="outline-danger"
-                      size="sm"
-                      className="ms-auto"
-                      onClick={() =>
-                        deletePostHandler(post._id)
+                  >
+                    {/* PROFILE PHOTO
+                        This is ALWAYS small.
+                    */}
+                    <img
+                      src={profileImage}
+                      alt={
+                        post.user?.username || "User"
                       }
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </Button>
-                  )}
+                      className="premium-avatar"
+                      style={{
+                        width: "48px",
+                        height: "48px",
+                        minWidth: "48px",
+                        minHeight: "48px",
+                        maxWidth: "48px",
+                        maxHeight: "48px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        display: "block",
+                        flexShrink: 0,
+                      }}
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://via.placeholder.com/50";
+                      }}
+                    />
 
-                  {startChartHandler &&
-                    post.user?._id && (
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        className="ms-2"
+                    <div className="premium-user-details">
+                      <h6>
+                        {post.user?.username ||
+                          "User"}
+                      </h6>
+
+                      <span>
+                        {post.createdAt
+                          ? new Date(
+                              post.createdAt
+                            ).toLocaleString()
+                          : "Recently"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="premium-header-actions">
+                    {/* CHAT */}
+
+                    {startChartHandler &&
+                      post.user?._id && (
+                        <button
+                          type="button"
+                          className="premium-small-button"
+                          onClick={() =>
+                            startChartHandler(
+                              post.user._id
+                            )
+                          }
+                          title="Start chat"
+                        >
+                          <span className="premium-symbol">
+                            💬
+                          </span>
+                        </button>
+                      )}
+
+                    {/* DELETE */}
+
+                    {isOwner && (
+                      <button
+                        type="button"
+                        className="premium-small-button delete-button"
                         onClick={() =>
-                          startChartHandler(
-                            post.user._id
-                          )
+                          deletePostHandler(post._id)
                         }
+                        title="Delete post"
                       >
-                        Chat
-                      </Button>
+                        <span className="premium-symbol">
+                          🗑
+                        </span>
+                      </button>
                     )}
+
+                    {/* MORE */}
+
+                    {!isOwner && (
+                      <button
+                        type="button"
+                        className="premium-small-button"
+                        title="More options"
+                      >
+                        <span className="premium-more">
+                          •••
+                        </span>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
-                {/* Post Content */}
-                <Card.Text className="mt-3">
-                  {post.content}
-                </Card.Text>
+                {/* =========================
+                    POST TEXT
+                ========================= */}
 
-                {/* Post Image */}
+                {post.content && (
+                  <div className="premium-post-text">
+                    {post.content}
+                  </div>
+                )}
+
+                {/* =========================
+                    ACTUAL POST IMAGE
+                ========================= */}
+
                 {post.image && (
-                  <div className="text-center mt-3">
+                  <div className="premium-image-container">
                     <img
                       src={getImageUrl(post.image)}
                       alt="Post"
-                      className="img-fluid rounded"
-                      style={{
-                        width: "100%",
-                        maxWidth: "600px",
-                        maxHeight: "600px",
-                        objectFit: "cover",
-                      }}
+                      className="premium-post-image"
                       onError={(e) => {
                         console.error(
-                          "Image failed to load:",
+                          "Post image failed to load:",
                           post.image
                         );
                       }}
@@ -305,142 +395,224 @@ function PostList({ posts, fetchPosts, startChartHandler }) {
                   </div>
                 )}
 
-                {/* Date */}
-                <div className="mt-3">
-                  <small className="text-muted">
-                    Posted at:{" "}
-                    {post.createdAt
-                      ? new Date(
-                          post.createdAt
-                        ).toLocaleString()
-                      : "Unknown"}
-                  </small>
+                {/* =========================
+                    ENGAGEMENT SUMMARY
+                ========================= */}
+
+                <div className="premium-engagement">
+                  <div className="engagement-left">
+                    {likeCount > 0 && (
+                      <>
+                        <span className="like-circle">
+                          <span>♥</span>
+                        </span>
+
+                        <span>
+                          {likeCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="engagement-right">
+                    {commentCount > 0 && (
+                      <span>
+                        {commentCount}{" "}
+                        {commentCount === 1
+                          ? "comment"
+                          : "comments"}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </Card.Body>
 
-              {/* Actions */}
-              <Card.Footer className="d-flex gap-2">
-                <Button
-                  variant={
-                    isLiked
-                      ? "danger"
-                      : "outline-danger"
-                  }
-                  size="sm"
-                  onClick={() =>
-                    toggleLikeHandler(post._id)
-                  }
-                >
-                  {isLiked ? "Unlike" : "Like"} (
-                  {likeCount})
-                </Button>
+                {/* =========================
+                    ACTION BUTTONS
+                ========================= */}
 
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  onClick={() =>
-                    sharePostHandler(post._id)
-                  }
-                >
-                  Share
-                </Button>
-              </Card.Footer>
+                <div className="premium-actions">
+                  {/* LIKE */}
 
-              {/* Comments */}
-              <div
-                className="accordion accordion-flush"
-                id={`accordion-${post._id}`}
-              >
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#comments-${post._id}`}
-                      aria-expanded="false"
-                      aria-controls={`comments-${post._id}`}
-                    >
-                      Comments{" "}
-                      <i className="fa-solid fa-comment ms-2"></i>
-                    </button>
-                  </h2>
-
-                  <div
-                    id={`comments-${post._id}`}
-                    className="accordion-collapse collapse"
-                    data-bs-parent={`#accordion-${post._id}`}
+                  <button
+                    type="button"
+                    className={`premium-action ${
+                      isLiked
+                        ? "premium-liked"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      toggleLikeHandler(post._id)
+                    }
                   >
-                    <div className="accordion-body">
-                      {/* Comment Form */}
-                      <Form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          submitCommentHandler(
+                    <span className="premium-action-icon">
+                      {isLiked ? "♥" : "♡"}
+                    </span>
+
+                    <span>Like</span>
+                  </button>
+
+                  {/* COMMENT */}
+
+                  <button
+                    type="button"
+                    className="premium-action"
+                    onClick={() =>
+                      document
+                        .getElementById(
+                          `comment-${post._id}`
+                        )
+                        ?.focus()
+                    }
+                  >
+                    <span className="premium-action-icon">
+                      💬
+                    </span>
+
+                    <span>Comment</span>
+                  </button>
+
+                  {/* SHARE */}
+
+                  <button
+                    type="button"
+                    className="premium-action"
+                    onClick={() =>
+                      sharePostHandler(post._id)
+                    }
+                  >
+                    <span className="premium-action-icon">
+                      ↗
+                    </span>
+
+                    <span>Share</span>
+                  </button>
+                </div>
+
+                {/* =========================
+                    COMMENTS
+                ========================= */}
+
+                <div className="premium-comments">
+                  <div className="premium-comment-title">
+                    <span className="comment-title-icon">
+                      💬
+                    </span>
+
+                    <span>Comments</span>
+                  </div>
+
+                  {/* COMMENT INPUT */}
+
+                  <Form
+                    className="premium-comment-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+
+                      if (
+                        !commentContent[
+                          post._id
+                        ]?.trim()
+                      ) {
+                        return;
+                      }
+
+                      submitCommentHandler(
+                        post._id
+                      );
+                    }}
+                  >
+                    {/* Current user's profile photo */}
+
+                    <img
+                      src={
+                        currentUser?.profilePicture
+                          ? getImageUrl(
+                              currentUser.profilePicture
+                            )
+                          : "https://via.placeholder.com/35"
+                      }
+                      alt="You"
+                      className="comment-user-avatar"
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        minWidth: "36px",
+                        minHeight: "36px",
+                        maxWidth: "36px",
+                        maxHeight: "36px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+
+                    <div className="comment-input-wrapper">
+                      <Form.Control
+                        id={`comment-${post._id}`}
+                        type="text"
+                        placeholder="Write a comment..."
+                        value={
+                          commentContent[
                             post._id
-                          );
-                        }}
+                          ] || ""
+                        }
+                        onChange={(e) =>
+                          setCommentContent({
+                            ...commentContent,
+                            [post._id]:
+                              e.target.value,
+                          })
+                        }
+                      />
+
+                      <button
+                        type="submit"
+                        className="comment-send-button"
+                        title="Send comment"
                       >
-                        <Form.Group
-                          controlId={`comment-${post._id}`}
-                        >
-                          <Form.Control
-                            type="text"
-                            placeholder="Write a comment..."
-                            value={
-                              commentContent[
-                                post._id
-                              ] || ""
-                            }
-                            onChange={(e) =>
-                              setCommentContent({
-                                ...commentContent,
-                                [post._id]:
-                                  e.target.value,
-                              })
-                            }
-                          />
-                        </Form.Group>
+                        ➤
+                      </button>
+                    </div>
+                  </Form>
 
-                        <Button
-                          type="submit"
-                          variant="primary"
-                          size="sm"
-                          className="mt-2"
-                        >
-                          Comment
-                        </Button>
-                      </Form>
+                  {/* EXISTING COMMENTS */}
 
-                      {/* Existing Comments */}
-                      <div className="mt-3">
-                        {post.comments?.map(
-                          (comment) => (
-                            <div
-                              key={comment._id}
-                              className="mb-3"
-                            >
+                  {post.comments?.length > 0 && (
+                    <div className="premium-comment-list">
+                      {post.comments.map(
+                        (comment) => (
+                          <div
+                            key={comment._id}
+                            className="premium-comment-item"
+                          >
+                            <div className="comment-letter">
+                              {comment.user?.username
+                                ?.charAt(0)
+                                ?.toUpperCase() ||
+                                "U"}
+                            </div>
+
+                            <div className="comment-bubble">
                               <strong>
-                                {
-                                  comment.user
-                                    ?.username
-                                }
+                                {comment.user
+                                  ?.username ||
+                                  "User"}
                               </strong>
 
-                              <p className="mb-0">
+                              <p>
                                 {comment.content}
                               </p>
                             </div>
-                          )
-                        )}
-                      </div>
+                          </div>
+                        )
+                      )}
                     </div>
-                  </div>
+                  )}
                 </div>
-              </div>
-            </Card>
-          );
-        })
+              </article>
+            );
+          })}
+        </div>
       )}
     </>
   );

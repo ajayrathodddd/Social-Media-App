@@ -1,0 +1,1382 @@
+/* =========================================================
+   PROFESSIONAL PROFILE PAGE
+   ========================================================= */
+
+.ajay-profile-page {
+  min-height: calc(100vh - 70px);
+  background: #f6f7fb;
+  padding: 28px 24px 60px;
+  color: #1f2937;
+}
+
+/* =========================================================
+   PROFILE HEADER
+   ========================================================= */
+
+.ajay-profile-header {
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.ajay-profile-header-top {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 28px 30px;
+}
+
+.ajay-profile-avatar-area {
+  flex-shrink: 0;
+}
+
+.ajay-profile-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #eef2ff;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.ajay-profile-identity {
+  min-width: 0;
+}
+
+.ajay-profile-eyebrow,
+.ajay-section-kicker {
+  display: block;
+  color: #6366f1;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  margin-bottom: 5px;
+}
+
+.ajay-profile-identity h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.ajay-profile-identity p {
+  margin: 5px 0 0;
+  color: #667085;
+  font-size: 14px;
+}
+
+/* =========================================================
+   PROFILE STATS
+   ========================================================= */
+
+.ajay-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #eef0f4;
+}
+
+.ajay-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 12px;
+}
+
+.ajay-stat + .ajay-stat {
+  border-left: 1px solid #eef0f4;
+}
+
+.ajay-stat strong {
+  color: #111827;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.ajay-stat span {
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.ajay-profile-message {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+}
+
+/* =========================================================
+   MAIN TWO-COLUMN LAYOUT
+   ========================================================= */
+
+.ajay-profile-content {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.ajay-profile-sidebar,
+.ajay-profile-main {
+  min-width: 0;
+}
+
+/* =========================================================
+   COMMON SECTIONS
+   ========================================================= */
+
+.ajay-profile-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.05);
+}
+
+.ajay-section-heading {
+  margin-bottom: 18px;
+}
+
+.ajay-section-heading h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 19px;
+  font-weight: 750;
+  letter-spacing: -0.2px;
+}
+
+.ajay-section-heading p {
+  margin: 5px 0 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.ajay-section-heading-inline {
+  margin-bottom: 18px;
+}
+
+/* =========================================================
+   PROFILE UPLOAD
+   ========================================================= */
+
+.ajay-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.ajay-file-input {
+  min-height: 45px;
+  border: 1px dashed #cfd5df !important;
+  border-radius: 11px !important;
+  background: #f8fafc !important;
+  color: #667085 !important;
+  font-size: 13px !important;
+  padding: 9px 11px !important;
+  box-shadow: none !important;
+}
+
+.ajay-file-input:hover {
+  border-color: #a5b4fc !important;
+  background: #f5f3ff !important;
+}
+
+.ajay-primary-button {
+  width: 100%;
+  border: none !important;
+  border-radius: 10px !important;
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  padding: 10px 15px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 5px 14px rgba(79, 70, 229, 0.18) !important;
+  transition: all 0.2s ease !important;
+}
+
+.ajay-primary-button:hover:not(:disabled) {
+  background: #4338ca !important;
+  transform: translateY(-1px);
+}
+
+.ajay-primary-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   ACCOUNT INFORMATION
+   ========================================================= */
+
+.ajay-info-list {
+  border-top: 1px solid #eef0f4;
+}
+
+.ajay-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.ajay-info-item span {
+  color: #98a2b3;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ajay-info-item strong {
+  color: #344054;
+  font-size: 13px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+.ajay-security-success {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  background: #f0fdf4;
+}
+
+.ajay-security-success > span {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.ajay-security-success strong {
+  display: block;
+  color: #166534;
+  font-size: 13px;
+}
+
+.ajay-security-success small {
+  display: block;
+  margin-top: 2px;
+  color: #4b7a5a;
+  font-size: 11px;
+}
+
+.ajay-qr-area {
+  margin-top: 15px;
+}
+
+.ajay-qr-toggle {
+  width: 100%;
+  border: 1px solid #e0e4eb;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #475467;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ajay-qr-toggle:hover {
+  background: #f5f3ff;
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+
+.ajay-qr-content {
+  display: none;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.ajay-qr-content.ajay-qr-visible {
+  display: block;
+}
+
+.ajay-qr-content img {
+  max-width: 200px;
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 8px;
+  background: #ffffff;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.ajay-search-form {
+  display: flex;
+  gap: 9px;
+}
+
+.ajay-search-input {
+  min-height: 45px;
+  border: 1px solid #dfe3eb !important;
+  border-radius: 11px !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+}
+
+.ajay-search-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.ajay-search-button {
+  min-width: 85px;
+  border: none !important;
+  border-radius: 10px !important;
+  background: #111827 !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.ajay-search-button:hover {
+  background: #374151 !important;
+}
+
+/* =========================================================
+   SEARCH RESULTS
+   ========================================================= */
+
+.ajay-search-results {
+  margin-top: 16px;
+}
+
+.ajay-user-row,
+.ajay-connection-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  margin-top: 9px;
+  border: 1px solid #edf0f4;
+  border-radius: 13px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ajay-user-row:hover,
+.ajay-connection-row:hover {
+  border-color: #c7d2fe;
+  background: #fafaff;
+  transform: translateY(-1px);
+}
+
+.ajay-user-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.ajay-user-identity > div:last-child {
+  min-width: 0;
+}
+
+.ajay-user-identity strong {
+  display: block;
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.ajay-user-identity span {
+  display: block;
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+.ajay-small-avatar {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eef2ff;
+}
+
+.ajay-small-avatar-default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ajay-user-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ajay-follow-button,
+.ajay-chat-button,
+.ajay-mini-follow,
+.ajay-mini-unfollow {
+  border: none !important;
+  border-radius: 9px !important;
+  padding: 7px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.ajay-follow-button,
+.ajay-mini-follow {
+  background: #4f46e5 !important;
+}
+
+.ajay-chat-button {
+  background: #f1f5f9 !important;
+  color: #475467 !important;
+}
+
+.ajay-mini-unfollow {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+}
+
+.ajay-follow-button:hover,
+.ajay-mini-follow:hover {
+  background: #4338ca !important;
+}
+
+.ajay-chat-button:hover {
+  background: #e2e8f0 !important;
+}
+
+.ajay-mini-unfollow:hover {
+  background: #fee2e2 !important;
+}
+
+/* =========================================================
+   CONNECTIONS
+   ========================================================= */
+
+.ajay-connections-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ajay-connection-column {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #edf0f4;
+  border-radius: 15px;
+  background: #fafbfc;
+}
+
+.ajay-connection-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9edf2;
+}
+
+.ajay-connection-title h3 {
+  margin: 0;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.ajay-connection-title span {
+  min-width: 25px;
+  padding: 3px 7px;
+  border-radius: 20px;
+  background: #eef2ff;
+  color: #4f46e5;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ajay-empty-state {
+  padding: 22px 8px 10px;
+  text-align: center;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+/* =========================================================
+   YOUR POSTS
+   ========================================================= */
+
+.ajay-post-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.ajay-post-count {
+  min-width: 40px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #eef2ff;
+  color: #4f46e5;
+  text-align: center;
+  font-size: 13px;
+}
+
+.ajay-post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ajay-post-item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #f1f3f5;
+  border: 1px solid #edf0f4;
+}
+
+.ajay-post-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ajay-post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.ajay-post-item:hover .ajay-post-image {
+  transform: scale(1.04);
+}
+
+.ajay-text-post {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: #f8f7ff;
+  color: #4f46e5;
+}
+
+.ajay-text-post span {
+  font-size: 24px;
+}
+
+.ajay-text-post small {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.ajay-no-posts {
+  padding: 40px 20px;
+  text-align: center;
+  border: 1px dashed #d8dde6;
+  border-radius: 15px;
+  background: #fafbfc;
+}
+
+.ajay-no-posts-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 25px;
+}
+
+.ajay-no-posts h3 {
+  margin: 0;
+  color: #344054;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.ajay-no-posts p {
+  margin: 5px 0 0;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+  .ajay-profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ajay-profile-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .ajay-profile-sidebar .ajay-profile-section {
+    margin-bottom: 0;
+  }
+
+  .ajay-profile-sidebar .ajay-profile-section:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .ajay-profile-page {
+    padding: 18px 12px 40px;
+  }
+
+  .ajay-profile-header {
+    border-radius: 17px;
+  }
+
+  .ajay-profile-header-top {
+    padding: 22px 18px;
+    gap: 15px;
+  }
+
+  .ajay-profile-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+  }
+
+  .ajay-profile-identity h1 {
+    font-size: 22px;
+  }
+
+  .ajay-profile-identity p {
+    font-size: 12px;
+  }
+
+  .ajay-stat {
+    padding: 14px 7px;
+  }
+
+  .ajay-stat strong {
+    font-size: 18px;
+  }
+
+  .ajay-stat span {
+    font-size: 10px;
+  }
+
+  .ajay-profile-content {
+    display: block;
+  }
+
+  .ajay-profile-sidebar {
+    display: block;
+  }
+
+  .ajay-profile-section {
+    padding: 17px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .ajay-section-heading h2 {
+    font-size: 17px;
+  }
+
+  .ajay-search-form {
+    flex-direction: column;
+  }
+
+  .ajay-search-button {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .ajay-user-row,
+  .ajay-connection-row {
+    align-items: flex-start;
+  }
+
+  .ajay-user-actions {
+    flex-direction: column;
+  }
+
+  .ajay-connections-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ajay-post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   PROFILE POSTS - PREMIUM GALLERY
+   ========================================================= */
+
+.ajay-post-grid {
+  margin-top: 18px;
+  gap: 14px;
+}
+
+.ajay-post-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f1f3f5;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+}
+
+.ajay-post-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.ajay-post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.ajay-post-item:hover .ajay-post-image {
+  transform: scale(1.06);
+  filter: brightness(0.92);
+}
+
+.ajay-text-post {
+  transition: transform 0.2s ease;
+}
+
+.ajay-post-item:hover .ajay-text-post {
+  transform: scale(1.02);
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .ajay-post-grid {
+    gap: 9px;
+  }
+
+  .ajay-post-item {
+    border-radius: 12px;
+  }
+}
+
+/* =========================================================
+   PROFILE CONNECTIONS - PREMIUM STYLE
+   ========================================================= */
+
+.ajay-connections-grid {
+  margin-top: 18px;
+}
+
+.ajay-connection-column {
+  background: #f8fafc;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+  padding: 15px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ajay-connection-column:hover {
+  border-color: #d9ddf5;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.ajay-connection-title {
+  margin-bottom: 4px;
+}
+
+.ajay-connection-row {
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 12px;
+  margin-top: 9px;
+  padding: 10px;
+  transition: all 0.2s ease;
+}
+
+.ajay-connection-row:hover {
+  border-color: #c7d2fe;
+  background: #fafaff;
+  transform: translateY(-1px);
+}
+
+.ajay-connection-row .ajay-user-identity {
+  flex: 1;
+  min-width: 0;
+}
+
+.ajay-connection-row .ajay-small-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+}
+
+.ajay-connection-row .ajay-user-identity strong {
+  font-size: 13px;
+}
+
+.ajay-mini-follow,
+.ajay-mini-unfollow {
+  min-width: 70px;
+  text-align: center;
+}
+
+.ajay-empty-state {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .ajay-connections-grid {
+    margin-top: 14px;
+  }
+
+  .ajay-connection-column {
+    padding: 12px;
+  }
+
+  .ajay-connection-row {
+    padding: 9px;
+  }
+}
+
+/* =========================================================
+   ACCOUNT INFORMATION - PREMIUM STYLE
+   ========================================================= */
+
+.ajay-info-list {
+  margin-top: 16px;
+  border-top: 1px solid #eef0f4;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ajay-info-item {
+  position: relative;
+  padding: 15px 14px;
+  background: #fafbfc;
+  border-bottom: 1px solid #eef0f4;
+  transition: background 0.2s ease;
+}
+
+.ajay-info-item:last-child {
+  border-bottom: none;
+}
+
+.ajay-info-item:hover {
+  background: #f7f7ff;
+}
+
+.ajay-info-item span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  color: #98a2b3;
+}
+
+.ajay-info-item strong {
+  margin-top: 2px;
+  color: #1f2937;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .ajay-info-item {
+    padding: 13px 12px;
+  }
+
+  .ajay-info-item strong {
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   SECURITY - PREMIUM STYLE
+   ========================================================= */
+
+.ajay-security-success {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 13px;
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  box-shadow: 0 3px 10px rgba(22, 163, 74, 0.04);
+}
+
+.ajay-security-success > span {
+  width: 30px;
+  height: 30px;
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.ajay-security-success strong {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.ajay-security-success small {
+  font-size: 11px;
+}
+
+.ajay-qr-area {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid #eef0f4;
+}
+
+.ajay-qr-toggle {
+  min-height: 42px;
+  background: #f8fafc;
+  border: 1px solid #dfe3eb;
+  border-radius: 10px;
+  color: #475467;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.ajay-qr-toggle:hover {
+  background: #f5f3ff;
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+
+.ajay-qr-content {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #e8ebf0;
+  border-radius: 14px;
+  background: #fafbfc;
+}
+
+.ajay-qr-content img {
+  max-width: 190px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  background: #ffffff;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.06);
+}
+
+/* =========================================================
+   PROFILE PICTURE UPLOAD - PREMIUM STYLE
+   ========================================================= */
+
+.ajay-upload-form {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #e8ebf0;
+  border-radius: 15px;
+  background: #fafbfc;
+}
+
+.ajay-file-input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px dashed #cfd5df !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #667085 !important;
+  padding: 11px 12px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ajay-file-input:hover {
+  border-color: #a5b4fc !important;
+  background: #f8f7ff !important;
+}
+
+.ajay-file-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.ajay-primary-button {
+  min-height: 44px;
+  border-radius: 11px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease !important;
+}
+
+.ajay-primary-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(79, 70, 229, 0.22) !important;
+}
+
+/* =========================================================
+   PROFILE HEADER - PREMIUM STYLE
+   ========================================================= */
+
+.ajay-profile-header {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+.ajay-profile-header-top {
+  padding: 30px;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #fafaff 100%
+  );
+}
+
+.ajay-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border: 4px solid #ffffff;
+  box-shadow:
+    0 0 0 2px #e0e7ff,
+    0 8px 20px rgba(15, 23, 42, 0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ajay-profile-avatar:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 0 0 3px #c7d2fe,
+    0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.ajay-profile-eyebrow {
+  color: #6366f1;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.ajay-profile-identity h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.ajay-profile-identity p {
+  color: #667085;
+  font-size: 14px;
+}
+
+.ajay-profile-stats {
+  background: #ffffff;
+  border-top: 1px solid #eef0f4;
+}
+
+.ajay-stat {
+  padding: 18px 12px;
+  transition: background 0.2s ease;
+}
+
+.ajay-stat:hover {
+  background: #fafbff;
+}
+
+.ajay-stat strong {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.ajay-stat span {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #98a2b3;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .ajay-profile-header-top {
+    padding: 22px 18px;
+  }
+
+  .ajay-profile-avatar {
+    width: 74px;
+    height: 74px;
+  }
+
+  .ajay-profile-identity h1 {
+    font-size: 22px;
+  }
+
+  .ajay-profile-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   FIND PEOPLE - PREMIUM SEARCH
+   ========================================================= */
+
+.ajay-search-form {
+  margin-top: 16px;
+  padding: 12px;
+  display: flex;
+  gap: 9px;
+  background: #f8fafc;
+  border: 1px solid #e8ebf0;
+  border-radius: 14px;
+}
+
+.ajay-search-input {
+  min-height: 44px;
+  background: #ffffff !important;
+  border: 1px solid #dfe3eb !important;
+  border-radius: 10px !important;
+  color: #1f2937 !important;
+}
+
+.ajay-search-input::placeholder {
+  color: #98a2b3;
+}
+
+.ajay-search-button {
+  min-height: 44px;
+  min-width: 82px;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease !important;
+}
+
+.ajay-search-button:hover {
+  transform: translateY(-1px);
+}
+
+.ajay-search-results {
+  margin-top: 15px;
+}
+
+.ajay-user-row {
+  padding: 12px;
+  margin-top: 9px;
+  border-radius: 13px;
+  border: 1px solid #edf0f4;
+  background: #ffffff;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ajay-user-row:hover {
+  transform: translateY(-1px);
+  border-color: #c7d2fe;
+  box-shadow: 0 5px 15px rgba(15, 23, 42, 0.05);
+}
+
+.ajay-user-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.ajay-follow-button,
+.ajay-chat-button {
+  min-height: 32px;
+  border-radius: 9px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.ajay-follow-button {
+  background: #4f46e5 !important;
+}
+
+.ajay-follow-button:hover {
+  background: #4338ca !important;
+}
+
+.ajay-chat-button {
+  background: #f1f5f9 !important;
+  color: #475467 !important;
+}
+
+.ajay-chat-button:hover {
+  background: #e2e8f0 !important;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .ajay-search-form {
+    flex-direction: column;
+  }
+
+  .ajay-search-button {
+    width: 100%;
+  }
+
+  .ajay-user-row {
+    padding: 10px;
+  }
+}
+
+/* =========================================================
+   PROFILE PAGE - FINAL SPACING & CONSISTENCY
+   ========================================================= */
+
+.ajay-profile-page {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.ajay-profile-header,
+.ajay-profile-content,
+.ajay-profile-message {
+  box-sizing: border-box;
+}
+
+.ajay-profile-section {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.ajay-profile-section:hover {
+  border-color: #dfe3f5;
+  box-shadow: 0 9px 26px rgba(15, 23, 42, 0.07);
+}
+
+.ajay-section-heading {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.ajay-section-heading h2 {
+  line-height: 1.3;
+}
+
+.ajay-section-heading p {
+  max-width: 620px;
+}
+
+/* Keep links visually clean */
+
+.ajay-profile-page a {
+  color: inherit;
+}
+
+/* Prevent long usernames/emails from breaking layout */
+
+.ajay-profile-page h1,
+.ajay-profile-page h2,
+.ajay-profile-page h3,
+.ajay-profile-page h4,
+.ajay-profile-page h5,
+.ajay-profile-page h6,
+.ajay-profile-page p,
+.ajay-profile-page span,
+.ajay-profile-page strong {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Better mobile spacing */
+
+@media (max-width: 767px) {
+  .ajay-profile-page {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .ajay-profile-header,
+  .ajay-profile-section {
+    width: 100%;
+  }
+
+  .ajay-section-heading {
+    padding-bottom: 12px;
+  }
+}

@@ -74,7 +74,6 @@ function Home() {
 
       const { data } = await axios.get("/api/posts", config);
 
-      // Make sure posts is always an array
       setPosts(Array.isArray(data) ? data : []);
     } catch (error) {
       setError(
@@ -101,46 +100,107 @@ function Home() {
   }, [navigate]);
 
   return (
-    <Container>
-      {loading && (
-        <div className="text-center mt-3">
-          Loading...
+    <div className="social-home">
+      <Container fluid className="px-3 px-md-4">
+        {/* Page heading */}
+        <div className="social-welcome text-center mb-4">
+          <h1 className="social-title">Social Feed</h1>
+          <p className="social-subtitle">
+            Connect, share and discover what your community is posting.
+          </p>
         </div>
-      )}
 
-      {error && (
-        <div className="alert alert-danger mt-3">
-          {error}
-        </div>
-      )}
+        {loading && (
+          <div className="social-loading">
+            <div className="spinner-border" role="status"></div>
+            <span>Loading your feed...</span>
+          </div>
+        )}
 
-      <Row>
-        {/* Left sidebar */}
-        <Col md={3}>
-          <UserSearch />
-        </Col>
+        {error && (
+          <div className="alert alert-danger shadow-sm rounded-4 mt-3">
+            {error}
+          </div>
+        )}
 
-        {/* Main content */}
-        <Col md={6}>
-          <h3 className="text-center bg-light text-dark mt-2 p-2">
-            Upload Posts
-          </h3>
+        <Row className="g-4 align-items-start">
+          {/* Left sidebar */}
+          <Col lg={3} md={4}>
+            <div className="social-sidebar-card">
+              <div className="sidebar-heading">
+                <span className="sidebar-icon">🔎</span>
+                <div>
+                  <h5>Find People</h5>
+                  <p>Discover users and start a conversation.</p>
+                </div>
+              </div>
 
-          <PostForm fetchPosts={fetchPosts} />
+              <UserSearch />
+            </div>
+          </Col>
 
-          <hr />
+          {/* Main feed */}
+          <Col lg={6} md={8}>
+            <div className="feed-column">
+              {/* Create post section */}
+              <div className="create-post-card">
+                <div className="section-heading">
+                  <div>
+                    <h3>Share something</h3>
+                    <p>Create a new post for your community.</p>
+                  </div>
+                  <span className="post-icon">✦</span>
+                </div>
 
-          <PostList
-            posts={Array.isArray(posts) ? posts : []}
-            fetchPosts={fetchPosts}
-            startChartHandler={startChatHandler}
-          />
-        </Col>
+                <PostForm fetchPosts={fetchPosts} />
+              </div>
 
-        {/* Right sidebar */}
-        <Col md={3}></Col>
-      </Row>
-    </Container>
+              {/* Feed */}
+              <div className="feed-header">
+                <div>
+                  <h3>Latest Posts</h3>
+                  <p>See what's happening in your community.</p>
+                </div>
+              </div>
+
+              <div className="posts-container">
+                <PostList
+                  posts={Array.isArray(posts) ? posts : []}
+                  fetchPosts={fetchPosts}
+                  startChartHandler={startChatHandler}
+                />
+              </div>
+            </div>
+          </Col>
+
+          {/* Right sidebar */}
+          <Col lg={3} className="d-none d-lg-block">
+            <div className="social-info-card">
+              <div className="info-icon">💬</div>
+              <h5>Stay Connected</h5>
+              <p>
+                Find people, share posts and chat with your community.
+              </p>
+
+              <div className="info-item">
+                <span>✓</span>
+                <span>Share your moments</span>
+              </div>
+
+              <div className="info-item">
+                <span>✓</span>
+                <span>Connect with users</span>
+              </div>
+
+              <div className="info-item">
+                <span>✓</span>
+                <span>Join conversations</span>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 
